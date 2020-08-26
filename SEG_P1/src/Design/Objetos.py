@@ -13,8 +13,11 @@ barrademenu = Menu(ventanaprincipal)
 # Menú Archivo (Menu Item)
 menuarchivo = Menu(barrademenu)
 
-# Rich Text Box
+# Menú Herrramientas (Menu Item)
+menuherramientas = Menu(barrademenu)
+
+# Rich Text Box (ScrollTextBox)
 richtextbox = scrolledtext.ScrolledText(ventanaprincipal)
 
-# Label Titulo Principal
+# Label Titulo Principal (Label)
 titulo = Label(ventanaprincipal)

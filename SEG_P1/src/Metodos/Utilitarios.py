@@ -1,9 +1,10 @@
 # ---------------------------------------------------Imports------------------------------------------------------------
 from tkinter.filedialog import askopenfilename, asksaveasfile
-from tkinter.messagebox import askyesnocancel
+from tkinter.messagebox import askyesnocancel, showinfo
 
 from src.Design import Objetos
 from src.Variables import Variables
+from src.Analizadores import AnalizadorLexicoHMTL as Analizadores
 
 
 # ----------------------------------------------------Métodos-----------------------------------------------------------
@@ -56,6 +57,8 @@ def OpcionAbrir():
 
     # Verificar Si No Se Presiono Cancelar
     if nombrearchivo != "":
+        # Limpiar TextBox
+        Objetos.richtextbox.delete(1.0, "end-1c")
 
         # Obtener Ruta Archivo
         arreglosplit = nombrearchivo.split(".")
@@ -67,12 +70,12 @@ def OpcionAbrir():
         # Abrir Archivo En Modo Lectura
         nuevoarchivo = open(nombrearchivo, "r")
 
-        # Obtener El Texto Del Archivo
-        cadenaarchivo = nuevoarchivo.read()
+        # Obtener Texto Completo
+        Variables.cadenaarchivo = nuevoarchivo.read()
         nuevoarchivo.close()
 
         # Colocar Texto En Rich Text
-        Objetos.richtextbox.insert("end-1c", cadenaarchivo)
+        Objetos.richtextbox.insert("end-1c", Variables.cadenaarchivo)
 
 
 # Método Guardar Archivo
@@ -80,7 +83,6 @@ def OpcionGuardar():
 
     # Verificar Que Existe Archivo Abierto
     if Variables.rutaarchivo != "":
-
         # Abrir Archivo En Modo Escritura
         archivomodificado = open(Variables.rutaarchivo, "w")
 
@@ -102,12 +104,37 @@ def OpcionGuardarComo():
 
     # Si Se Indico Un Archivo
     if rutaarchivo:
-
         # Escribir En Archivo
         rutaarchivo.write(Objetos.richtextbox.get(1.0, "end-1c"))
         rutaarchivo.close()
 
+        # Mensaje
+        showinfo("Información", "Archivo Guardado Con Exito!")
+
 
 # Método Salir
 def OpcionSalir():
+
     Objetos.ventanaprincipal.quit()
+
+
+# Modulo Decisión
+def ModuloDecisionAnalizador():
+
+    # Obtener Texto Archivo
+    Variables.cadenaarchivo = Objetos.richtextbox.get(1.0, "end-1c")
+
+    # Verificar Si Hay Una Archivo Abierto
+    if Variables.extensionarchivo != "":
+
+        # Verificar Extensión
+        if Variables.extensionarchivo.strip() == "html":
+            Analizadores.AnalizadorLexicoHTML()
+        elif Variables.extensionarchivo.strip() == "css":
+            print("Analizo Css")
+        elif Variables.extensionarchivo.strip() == "js":
+            print("Analizo Js")
+        elif Variables.extensionarchivo.strip() == "rmt":
+            print("Analisis Sintactico")
+    else:
+        showinfo("Información", "Aún No Se Ha Abierto Ningún Archivo Valido")
