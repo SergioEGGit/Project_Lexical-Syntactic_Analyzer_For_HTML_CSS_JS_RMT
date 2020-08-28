@@ -25,8 +25,8 @@ indexcaracterhtml = 0
 contadortokens = 0
 contadorerrores = 0
 auxiliarlexicohtml = ""
-tokenanterior = ""
-dicpalabrasreservadashtml = ["html", "head", "title"]
-dicsignoshtml = {"MayorQue": ">", "MenorQue": "<"}
+dicpalabrasreservadashtml = ["html", "head", "title", "body", "h1", "h2", "h3", "h4", "h5", "h6", "p", "br", "img",
+                             "src", "a", "href", "ul", "li", "style", "table", "border", "th", "tr", "td", "caption",
+                             "colgroup", "col", "thead", "tbody", "tfoot"]
 listatokenshtml = []
 listaerroreshtml = []

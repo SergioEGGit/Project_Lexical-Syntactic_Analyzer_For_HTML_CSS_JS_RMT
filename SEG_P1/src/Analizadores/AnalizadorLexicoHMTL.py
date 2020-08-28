@@ -1,6 +1,11 @@
 # ---------------------------------------------------Imports------------------------------------------------------------
-from src.Variables import Variables
 import re
+
+from tkinter.messagebox import showinfo
+
+from src.Variables import Variables
+from src.Metodos import ColorearTexto
+from src.Reportes import ReporteErrores
 
 
 # ----------------------------------------------------Métodos-----------------------------------------------------------
@@ -8,6 +13,7 @@ import re
 
 # Analizador Lexico HTML
 def AnalizadorLexicoHTML():
+
     # Asignación
     Variables.columnaauxiliarhtml = 1
     Variables.filaauxiliarhtml = 1
@@ -155,6 +161,31 @@ def AnalizadorLexicoHTML():
             # Vaciar Auxiliar Lexico
             Variables.auxiliarlexicohtml = ""
 
+            # Verificar Si El Siguiente Es /
+            if Variables.cadenaarchivo[Variables.indexcaracterhtml] == "/":
+                # Agregar Caracter A Auxiliar Lexico
+                Variables.auxiliarlexicohtml += Variables.cadenaarchivo[Variables.indexcaracterhtml]
+
+                # Sumar Columna
+                # Variables.columnaauxiliarhtml += 1
+
+                # Aceptar Cadena Como Valida
+
+                # Agregar Token A Lista
+                Variables.listatokenshtml.append(
+                    [Variables.contadortokens, "Simbolo", Variables.auxiliarlexicohtml, Variables.columnaauxiliarhtml,
+                     Variables.filaauxiliarhtml])
+
+                # Sumar Columna, Contador Tokens E Indice Del Array
+                Variables.columnaauxiliarhtml += 1
+                Variables.indexcaracterhtml += 1
+                Variables.contadortokens += 1
+
+                # Vaciar Auxiliar Lexico
+                Variables.auxiliarlexicohtml = ""
+
+                VerificarComentariosHTML()
+
         # Verificar Comillas Simples O Dobles (Cadenas De Texto)
         elif re.search(r"[\"']", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
 
@@ -202,7 +233,7 @@ def AnalizadorLexicoHTML():
 
             # Agregar Token A Lista
             Variables.listaerroreshtml.append(
-                [Variables.contadorerrores, "Error Lexico", Variables.auxiliarlexicohtml,
+                [Variables.contadorerrores, "Error_Lexico", Variables.auxiliarlexicohtml,
                  Variables.columnaauxiliarhtml, Variables.filaauxiliarhtml])
 
             # Sumar Contador Tokens E Indice Del Array
@@ -212,9 +243,18 @@ def AnalizadorLexicoHTML():
             # Vaciar Auxiliar Lexico
             Variables.auxiliarlexicohtml = ""
 
-    for token in Variables.listatokenshtml:
+    # Colorear Texto
+    ColorearTexto.ColorearTexto(Variables.listatokenshtml)
 
-        print(token)
+    # Generar Reporte De Errores
+    if Variables.listaerroreshtml:
+
+        showinfo("Error!", "Se Encontraron Errores En El Análisis!")
+
+        ReporteErrores.ReporteErroresHTML()
+    else:
+
+        showinfo("Exito!", "El Análisis Se Completo Con Exito!")
 
 
 # Verificar Palabras Reservadas E Identificadores
@@ -263,7 +303,6 @@ def VerificarReservasEIdentificadoresHTML():
                 if Variables.auxiliarlexicohtml == PalabraReservada:
                     # Definir Tipo
                     tipocadena = "Palabra_Reservada"
-                    Variables.tokenanterior = Variables.auxiliarlexicohtml
 
             # Agregar Token A Lista
             Variables.listatokenshtml.append(
@@ -400,7 +439,102 @@ def VerificarCadenasDeTextoHTML():
                  Variables.filaauxiliarhtml])
 
         # Vaciar Auxiliar Lexico
-        Variables.auxiliarlexicohtml = ""
+        Variables.auxiliarlexicohtml = ""  # Verificar Si No Estoy Al Final Del Archivo
+        if Variables.indexcaracterhtml < len(Variables.cadenaarchivo):
+
+            # Verificar Si Es Cadena De Texto O Comienzo Etiqueta
+            if not re.search(r"[<]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+                # Verificar Espacios Vacios
+                if re.search(r"[ ]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+                    # Agregar Caracter A Auxiliar Lexico
+                    Variables.auxiliarlexicohtml += Variables.cadenaarchivo[Variables.indexcaracterhtml]
+
+                    # Sumar Columna E Indice Del Array
+                    Variables.columnaauxiliarhtml += 1
+                    Variables.indexcaracterhtml += 1
+
+                    # Verificar Cadena Completa
+                    VerificarCadenasDeTextoHTML()
+
+                # Verificar Tabulaciones
+                elif re.search(r"[\t]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+                    # Sumar Columna E Indice Del Array
+                    Variables.columnaauxiliarhtml += 1
+                    Variables.indexcaracterhtml += 1
+
+                    # Verificar Cadena Completa
+                    VerificarCadenasDeTextoHTML()
+
+                # Verificar Salto De Linea
+                elif re.search(r"[\n]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+                    # Agregar Caracter A Auxiliar Lexico
+                    Variables.auxiliarlexicohtml += " "
+
+                    # Sumar Fila E Indice Del Array, Reiniciar Columna
+                    Variables.columnaauxiliarhtml = 1
+                    Variables.filaauxiliarhtml += 1
+                    Variables.indexcaracterhtml += 1
+
+                    # Verificar Cadena Completa
+                    VerificarCadenasDeTextoHTML()
+
+                # Verificar Otro Tipo De Caracter
+                else:
+
+                    # Agegar Caracter A Auxiliar Lexico
+                    Variables.auxiliarlexicohtml += Variables.cadenaarchivo[Variables.indexcaracterhtml]
+
+                    # Sumar Columna E Indice Del Array
+                    Variables.columnaauxiliarhtml += 1
+                    Variables.indexcaracterhtml += 1
+
+                    # Existe Caracter
+                    Variables.existecaracter = True
+
+                    # Verificar Cadena Completa
+                    VerificarCadenasDeTextoHTML()
+
+            # Aceptar Cadena Como Valida
+            else:
+
+                # Ubicar La Columna Del Final De La Cadena
+                Variables.columnaauxiliarhtml -= 1
+
+                # Verificar Si Existe Caracter
+                if Variables.existecaracter:
+                    # Agregar Token A La Lista
+                    Variables.listatokenshtml.append(
+                        [Variables.contadortokens, "Cadena", Variables.auxiliarlexicohtml,
+                         Variables.columnaauxiliarhtml,
+                         Variables.filaauxiliarhtml])
+
+                # Sumar Columna Y Contador Tokens
+                Variables.columnaauxiliarhtml += 1
+                Variables.contadortokens += 1
+
+                # Vaciar Auxiliar Lexico
+                Variables.auxiliarlexicohtml = ""
+
+        # Aceptar Cadena Como Valida
+        else:
+
+            # Ubicar La Columna Del Final De La Cadena
+            Variables.columnaauxiliarhtml -= 1
+
+            # Verificar Si Existe Caracter
+            if Variables.existecaracter:
+                # Agregar Token A La Lista
+                Variables.listatokenshtml.append(
+                    [Variables.contadortokens, "Cadena", Variables.auxiliarlexicohtml,
+                     Variables.columnaauxiliarhtml,
+                     Variables.filaauxiliarhtml])
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicohtml = ""
 
 
 # Verificar Comillas
@@ -494,5 +628,88 @@ def VerificarComillasHTML():
             # Agregar Token A La Lista
             Variables.listatokenshtml.append(
                 [Variables.contadortokens, "Texto", Variables.auxiliarlexicohtml,
+                 Variables.columnaauxiliarhtml,
+                 Variables.filaauxiliarhtml])
+
+
+# Verificar Comentarios
+def VerificarComentariosHTML():
+    # Verificar Si No Estoy Al Final Del Archivo
+    if Variables.indexcaracterhtml < len(Variables.cadenaarchivo):
+
+        # Verificar Si Es Cadena De Texto O Comienzo Etiqueta
+        if not re.search(r"[\n]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+            # Verificar Espacios Vacios            
+            if re.search(r"[ ]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+                # Agregar Caracter A Auxiliar Lexico
+                Variables.auxiliarlexicohtml += Variables.cadenaarchivo[Variables.indexcaracterhtml]
+
+                # Sumar Columna E Indice Del Array
+                Variables.columnaauxiliarhtml += 1
+                Variables.indexcaracterhtml += 1
+
+                # Verificar Cadena Completa
+                VerificarComentariosHTML()
+
+            # Verificar Tabulaciones
+            elif re.search(r"[\t]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+                # Sumar Columna E Indice Del Array
+                Variables.columnaauxiliarhtml += 1
+                Variables.indexcaracterhtml += 1
+
+                # Verificar Cadena Completa
+                VerificarComentariosHTML()
+
+            # Verificar Otro Tipo De Caracter
+            else:
+
+                # Agegar Caracter A Auxiliar Lexico
+                Variables.auxiliarlexicohtml += Variables.cadenaarchivo[Variables.indexcaracterhtml]
+
+                # Sumar Columna E Indice Del Array
+                Variables.columnaauxiliarhtml += 1
+                Variables.indexcaracterhtml += 1
+
+                # Existe Caracter
+                Variables.existecaracter = True
+
+                # Verificar Cadena Completa
+                VerificarComentariosHTML()
+
+        # Aceptar Cadena Como Valida
+        else:
+
+            # Ubicar La Columna Del Final De La Cadena
+            Variables.columnaauxiliarhtml -= 1
+
+            # Verificar Si Existe Caracter
+            if Variables.existecaracter:
+                # Agregar Token A La Lista
+                Variables.listatokenshtml.append(
+                    [Variables.contadortokens, "Comentario", Variables.auxiliarlexicohtml,
+                     Variables.columnaauxiliarhtml,
+                     Variables.filaauxiliarhtml])
+
+            # Sumar Columna Y Contador Tokens
+            Variables.columnaauxiliarhtml += 1
+            Variables.contadortokens += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicohtml = ""
+
+    # Aceptar Cadena Como Valida
+    else:
+
+        # Ubicar La Columna Del Final De La Cadena
+        Variables.columnaauxiliarhtml -= 1
+
+        # Verificar Si Existe Caracter
+        if Variables.existecaracter:
+            # Agregar Token A La Lista
+            Variables.listatokenshtml.append(
+                [Variables.contadortokens, "Comentario", Variables.auxiliarlexicohtml,
                  Variables.columnaauxiliarhtml,
                  Variables.filaauxiliarhtml])
