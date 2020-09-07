@@ -16,8 +16,17 @@ menuarchivo = Menu(barrademenu)
 # Menú Herrramientas (Menu Item)
 menuherramientas = Menu(barrademenu)
 
-# Rich Text Box (ScrollTextBox)
-richtextbox = scrolledtext.ScrolledText(ventanaprincipal)
+# Rich Text Box Archivo (ScrollTextBox)
+richtextboxarchivo = scrolledtext.ScrolledText(ventanaprincipal)
+
+# Rich Text Box Consola (ScrollTextBox)
+richtextboxconsola = scrolledtext.ScrolledText(ventanaprincipal)
 
 # Label Titulo Principal (Label)
-titulo = Label(ventanaprincipal)
+tituloprincipal = Label(ventanaprincipal)
+
+# Label Titulo Archivo (Label)
+tituloarchivo = Label(ventanaprincipal)
+
+# Label Titulo Consola (Label)
+tituloconsola = Label(ventanaprincipal)

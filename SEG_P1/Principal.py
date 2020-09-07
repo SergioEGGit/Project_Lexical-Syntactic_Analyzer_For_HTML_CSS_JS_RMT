@@ -8,9 +8,12 @@ from src.Design import Configuracion
 
 # Configuración Ventana Principal
 Configuracion.VentanaPrincipal()
-Configuracion.MenuArchivo()
-Configuracion.RichText()
-Configuracion.Titulo()
+Configuracion.Menu()
+Configuracion.RichTextArchivo()
+Configuracion.RichTextConsola()
+Configuracion.TituloPrincipal()
+Configuracion.TituloArchivo()
+Configuracion.TituloConsola()
 
 # Ciclo Ventana
 Objetos.ventanaprincipal.mainloop(0)
