@@ -55,3 +55,15 @@ dicpalabrasreservadascss = ["color", "background-color", "background-image", "bo
 listatokenscss = []
 listaerrorescss = []
 bitacoracss = []
+
+# Analizador Js
+columnaauxiliarjs = 0
+filaauxiliarjs = 0
+indexcaracterjs = 0
+contadortokensjs = 0
+contadorerroresjs = 0
+auxiliarlexicojs = ""
+archivojs = ""
+dicpalabrasreservadasjs = ["var"]
+listatokensjs = []
+listaerroresjs = []

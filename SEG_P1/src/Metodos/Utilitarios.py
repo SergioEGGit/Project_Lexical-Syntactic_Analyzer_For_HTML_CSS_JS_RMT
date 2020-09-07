@@ -8,7 +8,8 @@ from tkinter.messagebox import askyesnocancel, showinfo, askyesno
 
 from src.Design import Objetos
 from src.Variables import Variables
-from src.Analizadores import AnalizadorLexicoHMTL as AnalizadorHTML, AnalizadorLexicoCSS as AnalizadorCSS
+from src.Analizadores import AnalizadorLexicoHMTL as AnalizadorHTML, AnalizadorLexicoCSS as AnalizadorCSS, \
+    AnalizadorLexicoJS as AnalizadorJS
 
 
 # ----------------------------------------------------Métodos-----------------------------------------------------------
@@ -141,7 +142,7 @@ def ModuloDecisionAnalizador():
 
         elif Variables.extensionarchivo.strip() == "js":
 
-            print("Analizo Js")
+            AnalizadorJS.AnalizadorLexicoJS()
 
         elif Variables.extensionarchivo.strip() == "rmt":
 
@@ -327,7 +328,6 @@ def ArchivoSinErroresCSS(nombrearchivo):
 
 # Mostrar Tokens
 def MostrarTokens(extensionarchivo):
-
     # Variables
     listatokens = ""
 
@@ -339,15 +339,20 @@ def MostrarTokens(extensionarchivo):
 
         # Mostrar Tokens
         for Token in Variables.listatokenshtml:
-
-            listatokens += "Id: " + str(Token[0]) + "." + "  Tipo: " + Token[1] + "." + "  Lexema: " + Token[2] + "."\
+            listatokens += "Id: " + str(Token[0]) + "." + "  Tipo: " + Token[1] + "." + "  Lexema: " + Token[2] + "." \
                            + "  Columna: " + str(Token[3]) + "." + "  Fila: " + str(Token[4]) + "." + "\n\n"
 
     elif extensionarchivo == "css":
 
         # Mostrar Tokens
         for Token in Variables.listatokenscss:
+            listatokens += "Id: " + str(Token[0]) + "." + "  Tipo: " + Token[1] + "." + "  Lexema: " + Token[2] + "." \
+                           + "  Columna: " + str(Token[3]) + "." + "  Fila: " + str(Token[4]) + "." + "\n\n"
 
+    elif extensionarchivo == "js":
+
+        # Mostrar Tokens
+        for Token in Variables.listatokensjs:
             listatokens += "Id: " + str(Token[0]) + "." + "  Tipo: " + Token[1] + "." + "  Lexema: " + Token[2] + "." \
                            + "  Columna: " + str(Token[3]) + "." + "  Fila: " + str(Token[4]) + "." + "\n\n"
 
@@ -358,7 +363,6 @@ def MostrarTokens(extensionarchivo):
 
 # Mostrar Errores
 def MostrarErrores(extensionarchivo):
-
     # Variables
     listaerrores = ""
 
@@ -370,15 +374,20 @@ def MostrarErrores(extensionarchivo):
 
         # Mostrar Errores
         for Error in Variables.listaerroreshtml:
-
-            listaerrores += "Id: " + str(Error[0]) + "." + "  Tipo: " + Error[1] + "." + "  Lexema: " + Error[2] + "."\
-                           + "  Columna: " + str(Error[3]) + "." + "  Fila: " + str(Error[4]) + "." + "\n\n"
+            listaerrores += "Id: " + str(Error[0]) + "." + "  Tipo: " + Error[1] + "." + "  Lexema: " + Error[2] + "." \
+                            + "  Columna: " + str(Error[3]) + "." + "  Fila: " + str(Error[4]) + "." + "\n\n"
 
     elif extensionarchivo == "css":
 
         # Mostrar Errores
         for Error in Variables.listaerrorescss:
+            listaerrores += "Id: " + str(Error[0]) + "." + "  Tipo: " + Error[1] + "." + "  Lexema: " + Error[2] + "." \
+                            + "  Columna: " + str(Error[3]) + "." + "  Fila: " + str(Error[4]) + "." + "\n\n"
 
+    elif extensionarchivo == "js":
+
+        # Mostrar Errores
+        for Error in Variables.listaerroresjs:
             listaerrores += "Id: " + str(Error[0]) + "." + "  Tipo: " + Error[1] + "." + "  Lexema: " + Error[2] + "." \
                             + "  Columna: " + str(Error[3]) + "." + "  Fila: " + str(Error[4]) + "." + "\n\n"
 
