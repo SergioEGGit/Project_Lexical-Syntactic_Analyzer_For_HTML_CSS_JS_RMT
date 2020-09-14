@@ -64,6 +64,7 @@ contadortokensjs = 0
 contadorerroresjs = 0
 auxiliarlexicojs = ""
 archivojs = ""
-dicpalabrasreservadasjs = ["var"]
+dicpalabrasreservadasjs = ["var", "false", "true", "console", "log", "if", "else", "for", "while", "do", "continue",
+                           "break", "return", "function", "constructor", "this", "class", "Math", "pow"]
 listatokensjs = []
 listaerroresjs = []

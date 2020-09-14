@@ -103,8 +103,8 @@ def ReporteErroresHTML():
         # Agregar Error A Archivo
         cadenaarchivo += "        <tr bgcolor=\"#FFE4E1\"> \n" \
                          "            <center><td>" + str(Error[0]) + "</td></center> \n" \
-                                                                      "            <center><td>" + str(
-            Error[4]) + "</td></center> \n " \
+                                                                      "            <center><td>" + \
+                        str(Error[4]) + "</td></center> \n " \
                         "            <center><td>" + str(Error[3]) + "</td></center> \n" \
                                                                      "            <center><td>" + Error[
                              2] + "</td></center> \n" \
@@ -134,7 +134,6 @@ def ReporteErroresHTML():
 
 # Reporte De Errores CSS
 def ReporteErroresCSS():
-
     # Variables
     rutaarchivo = ""
     cadenaarchivo = ""

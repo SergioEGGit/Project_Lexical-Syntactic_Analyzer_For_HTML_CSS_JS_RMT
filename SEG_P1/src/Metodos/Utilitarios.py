@@ -16,6 +16,7 @@ from src.Analizadores import AnalizadorLexicoHMTL as AnalizadorHTML, AnalizadorL
 
 # Método Nuevo
 def OpcionNuevo():
+
     # Verificar Si Hay Un Archivo Abierto
     if Variables.rutaarchivo != "":
 
@@ -122,6 +123,7 @@ def OpcionSalir():
 
 # Modulo Decisión
 def ModuloDecisionAnalizador():
+
     # Obtener Texto Archivo
     Variables.cadenaarchivo = Objetos.richtextboxarchivo.get(1.0, "end-1c")
 
@@ -154,6 +156,7 @@ def ModuloDecisionAnalizador():
 
 # Generar Archivo HTML Sin Errores
 def ArchivoSinErroresHTML(nombrearchivo):
+
     # Variables
     rutaarchivo = ""
     rutastring = ""
@@ -241,6 +244,7 @@ def ArchivoSinErroresHTML(nombrearchivo):
 
 # Generar Archivo CSS Sin Errores
 def ArchivoSinErroresCSS(nombrearchivo):
+
     # Variables
     rutaarchivo = ""
     rutastring = ""
@@ -394,3 +398,4 @@ def MostrarErrores(extensionarchivo):
     # Insertar Texto
     Objetos.richtextboxconsola.delete(1.0, "end-1c")
     Objetos.richtextboxconsola.insert("end-1c", listaerrores)
+

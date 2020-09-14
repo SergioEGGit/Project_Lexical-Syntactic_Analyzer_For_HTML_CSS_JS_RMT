@@ -42,6 +42,7 @@ def Menu():
                                          command=lambda: Utilitarios.MostrarTokens(Variables.extensionarchivo))
     Objetos.menuherramientas.add_command(label="Mostar Errores",
                                          command=lambda: Utilitarios.MostrarErrores(Variables.extensionarchivo))
+    Objetos.menuherramientas.add_separator()
     Objetos.menuherramientas.add_command(label="Reporte Bitacora CSS",
                                          command=lambda: ReporteBitacoraCSS.ReporteBitacoraCSS(
                                              Variables.extensionarchivo))

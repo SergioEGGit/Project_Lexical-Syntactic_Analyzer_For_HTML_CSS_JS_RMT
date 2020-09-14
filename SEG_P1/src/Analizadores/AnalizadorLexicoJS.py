@@ -1,13 +1,7 @@
 # ---------------------------------------------------Imports------------------------------------------------------------
 import re
 
-from tkinter.messagebox import showinfo, askyesno
-
-from src.Design import Objetos
-from src.Metodos import ColorearTexto, Utilitarios
-from src.Reportes import ReporteErrores
 from src.Variables import Variables
-
 
 # ----------------------------------------------------Métodos-----------------------------------------------------------
 
@@ -303,8 +297,355 @@ def AnalizadorLexicoJS():
             if Variables.numerocomillas == 2:
                 # Reiniciar Numero De Comillas
                 Variables.numerocomillas = 0
-                Variables.columnaauxiliarjs -= 1
-            
+
+        # Verificar Cadenas De Texto - Signo (')
+        elif re.search(r"[']", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Sumar Numero De Comillas
+            Variables.numerocomillas += 1
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs, Variables.columnaauxiliarjs,
+                 Variables.filaauxiliarjs])
+
+            # Sumar Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+            # Verificar Numero De Comillas
+            if Variables.numerocomillas < 2:
+                # Verificar Cadenas De Texto
+                VerificarCadenasDeTextoComillasSimplesJS()
+
+            if Variables.numerocomillas == 2:
+                # Reiniciar Numero De Comillas
+                Variables.numerocomillas = 0
+
+        # Verificar Signo (:)
+        elif re.search(r"[:]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (;)
+        elif re.search(r"[;]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (.)
+        elif re.search(r"[.]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (,)
+        elif re.search(r"[,]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (()
+        elif re.search(r"[(]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo ())
+        elif re.search(r"[)]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo ({)
+        elif re.search(r"[{]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (})
+        elif re.search(r"[}]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (<)
+        elif re.search(r"[<]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (>)
+        elif re.search(r"[>]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (+)
+        elif re.search(r"[+]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+         # Verificar Signo (-)
+        elif re.search(r"[-]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+        # Verificar Signo (&)
+        elif re.search(r"[&]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Archivo Sin Errores
+            Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarjs += 1
+            Variables.indexcaracterjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
         # Verficar Errores Lexicos
         else:
 
@@ -320,6 +661,7 @@ def AnalizadorLexicoJS():
 
             # Sumar Contador Tokens E Indice Del Array
             Variables.indexcaracterjs += 1
+            Variables.columnaauxiliarjs += 1
             Variables.contadorerroresjs += 1
 
             # Vaciar Auxiliar Lexico
@@ -377,21 +719,25 @@ def VerificarReservadasEIdentificadoresJS():
 
                 # Verificar Diccionario
                 if Variables.auxiliarlexicojs == PalabraReservada:
-                    # Definir Tipo
-                    tipocadena = "Palabra_Reservada"
+
+                    # Verificar Diccionario
+                    if PalabraReservada == "true" or PalabraReservada == "false":
+
+                        # Definir Tipo
+                        tipocadena = "Boolean"
+                    else:
+
+                        # Definir Tipo
+                        tipocadena = "Palabra_Reservada"
 
             # Agregar Token A Lista
             Variables.listatokensjs.append(
                 [Variables.contadortokensjs, tipocadena, Variables.auxiliarlexicojs, Variables.columnaauxiliarjs,
                  Variables.filaauxiliarjs])
 
-            # Verificar Si Hay Espacio O No
-            if re.search(r"[a-zA-Z0-9 ]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
-                # Sumar Columna
-                Variables.columnaauxiliarjs += 1
-
             # Contador Tokens Y Vaciar Auxiliar Lexico
             Variables.contadortokensjs += 1
+            Variables.columnaauxiliarjs += 1
             Variables.auxiliarlexicojs = ""
 
     # Aceptar Cadena Como Valida (Final Del Archivo)
@@ -408,10 +754,18 @@ def VerificarReservadasEIdentificadoresJS():
 
             # Verificar Diccionario
             if Variables.auxiliarlexicojs == PalabraReservada:
-                # Definir Tipo
-                tipocadena = "Palabra_Reservada"
 
-                # Agregar Token A Lista
+                # Verificar Diccionario
+                if PalabraReservada == "true" or PalabraReservada == "false":
+
+                    # Definir Tipo
+                    tipocadena = "Boolean"
+                else:
+
+                    # Definir Tipo
+                    tipocadena = "Palabra_Reservada"
+
+        # Agregar Token A Lista
         Variables.listatokensjs.append(
             [Variables.contadortokensjs, tipocadena, Variables.auxiliarlexicojs, Variables.columnaauxiliarjs,
              Variables.filaauxiliarjs])
@@ -687,6 +1041,113 @@ def VerificarCadenasDeTextoComillasDoblesJS():
 
                 # Verificar Cadena Completa
                 VerificarCadenasDeTextoComillasDoblesJS()
+
+        # Aceptar Cadena Como Valida
+        else:
+
+            # Ubicar La Columna Del Final De La Cadena
+            Variables.columnaauxiliarjs -= 1
+
+            # Verificar Si Existe Caracter
+            if Variables.existecaracter:
+                # Agregar Token A La Lista
+                Variables.listatokensjs.append(
+                    [Variables.contadortokensjs, "Texto", Variables.auxiliarlexicojs,
+                     Variables.columnaauxiliarjs,
+                     Variables.filaauxiliarjs])
+
+            # Sumar Columna Y Contador Tokens
+            Variables.columnaauxiliarjs += 1
+            Variables.contadortokensjs += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicojs = ""
+
+    # Aceptar Cadena Como Valida
+    else:
+
+        # Ubicar La Columna Del Final De La Cadena
+        Variables.columnaauxiliarjs -= 1
+
+        # Verificar Si Existe Caracter
+        if Variables.existecaracter:
+            # Agregar Token A La Lista
+            Variables.listatokensjs.append(
+                [Variables.contadortokensjs, "Texto", Variables.auxiliarlexicojs,
+                 Variables.columnaauxiliarjs,
+                 Variables.filaauxiliarjs])
+
+
+# Verificar Cadenas De Texto
+def VerificarCadenasDeTextoComillasSimplesJS():
+
+    # Verificar Si No Estoy Al Final Del Archivo
+    if Variables.indexcaracterjs < len(Variables.cadenaarchivo):
+
+        # Verificar Si Es Cadena De Texto O Comienzo Etiqueta
+        if not re.search(r"[']", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+            # Verificar Espacios Vacios
+            if re.search(r"[ ]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+                # Agregar Caracter A Auxiliar Lexico
+                Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                # Archivo Sin Errores
+                Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                # Sumar Columna E Indice Del Array
+                Variables.columnaauxiliarjs += 1
+                Variables.indexcaracterjs += 1
+
+                # Verificar Cadena Completa
+                VerificarCadenasDeTextoComillasSimplesJS()
+
+            # Verificar Tabulaciones
+            elif re.search(r"[\t]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+                # Archivo Sin Errores
+                Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                # Sumar Columna E Indice Del Array
+                Variables.columnaauxiliarjs += 1
+                Variables.indexcaracterjs += 1
+
+                # Verificar Cadena Completa
+                VerificarCadenasDeTextoComillasSimplesJS()
+
+            # Verificar Salto De Linea
+            elif re.search(r"[\n]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+
+                # Archivo Sin Errores
+                Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                # Sumar Fila E Indice Del Array, Reiniciar Columna
+                Variables.columnaauxiliarjs = 1
+                Variables.filaauxiliarjs += 1
+                Variables.indexcaracterjs += 1
+
+                # Verificar Cadena Completa
+                VerificarCadenasDeTextoComillasSimplesJS()
+
+            # Verificar Otro Tipo De Caracter
+            else:
+
+                # Agegar Caracter A Auxiliar Lexico
+                Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                # Archivo Sin Errores
+                Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                # Sumar Columna E Indice Del Array
+                Variables.columnaauxiliarjs += 1
+                Variables.indexcaracterjs += 1
+
+                # Existe Caracter
+                Variables.existecaracter = True
+
+                # Verificar Cadena Completa
+                VerificarCadenasDeTextoComillasSimplesJS()
 
         # Aceptar Cadena Como Valida
         else:
