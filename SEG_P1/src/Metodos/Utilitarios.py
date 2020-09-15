@@ -330,6 +330,99 @@ def ArchivoSinErroresCSS(nombrearchivo):
         subprocess.run(["notepad", pathsalida])
 
 
+# Generar Archivo JS Sin Errores
+def ArchivoSinErroresJS(nombrearchivo):
+
+    # Variables
+    rutaarchivo = ""
+    rutastring = ""
+    listacomentarios = []
+    listasplit = []
+
+    # Asignacion
+    listacomentarios[:] = []
+    listasplit[:] = []
+    rutastring = "C:\\Output\\js"
+
+    # Obtener Ruta Archivo
+    for Tokens in Variables.listatokensjs:
+
+        # Obtener Comentarios
+        if Tokens[1] == "Comentario_UniLinea":
+
+            # Agregar Token A Lista
+            listacomentarios.append(Tokens[2].strip())
+
+    # Obtener Ruta Archivo
+    for Comentario in listacomentarios:
+
+        # Verificar Que Contenga Una Ruta
+        if ":" in Comentario:
+
+            # Split Comentario
+            listasplit = Comentario.split(":", maxsplit=1)
+
+            # Verificar Si La Ruta Es Valida
+            if listasplit[0].strip() == "PATHW":
+
+                # Obtener Ruta Para Windows
+                rutaarchivo = listasplit[1].strip()
+
+    # Verificar Ruta Archivo
+    if rutaarchivo != "":
+
+        # Convertir String A Ruta
+        patharchivo = Path(rutaarchivo)
+
+        # Verificar Si Existe El Directorio
+        if not patharchivo.is_dir():
+
+            # Crear Directorios
+            patharchivo.mkdir(parents=True)
+
+        # Crear Archivo
+        reporteerrores = open(rutaarchivo + nombrearchivo.strip() + "_Corregido.js", "w")
+
+        # Path Salida
+        pathsalida = rutaarchivo + nombrearchivo + "_Corregido.js"
+
+    else:
+
+        # Convertir String A Ruta
+        patharchivo = Path(rutastring)
+
+        # Verificar Si Existe El Directorio
+        if not patharchivo.is_dir():
+
+            # Crear Directorios
+            patharchivo.mkdir(parents=True)
+
+        reporteerrores = open(rutastring + "\\" + nombrearchivo + "_Corregido.js", "w")
+
+        # Path Salida
+        pathsalida = rutastring + "\\" + nombrearchivo + "_Corregido.js"
+
+        showinfo("Error!", "No Se Especifico La Ruta Para Guardar El Archivo \n"
+                           "Se Guardara En La Siguiente Ruta: \n" +
+                 rutastring)
+
+    # Escribir En Archivo
+    reporteerrores.write(Variables.archivojs)
+
+    # Cerrar Archivo
+    reporteerrores.close()
+
+    # Preguntar Si Se Desea Abrir El Reporte
+    resultado = askyesno("Archivo Corregidos!", "¿Desea Abrir El Archivo Corregido?")
+
+    # Abrir Archivo
+    if resultado:
+
+        # Abrir Archivos Corregidos
+        # Abrir Archivo JS
+        subprocess.run(["notepad", pathsalida])
+
+
 # Mostrar Tokens
 def MostrarTokens(extensionarchivo):
     # Variables

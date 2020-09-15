@@ -4,7 +4,7 @@ from tkinter import WORD
 from src.Design import Objetos
 from src.Metodos import Utilitarios
 from src.Variables import Variables
-from src.Reportes import ReporteBitacoraCSS
+from src.Reportes import ReporteBitacoraCSS, ReporteAutomataJS
 
 # --------------------------------------------Conifguración Objetos-----------------------------------------------------
 
@@ -43,10 +43,11 @@ def Menu():
     Objetos.menuherramientas.add_command(label="Mostar Errores",
                                          command=lambda: Utilitarios.MostrarErrores(Variables.extensionarchivo))
     Objetos.menuherramientas.add_separator()
+    Objetos.menuherramientas.add_command(label="Reporte Partes Automata JS",
+                                         command=lambda: ReporteAutomataJS.GenerarGraficaReporte())
     Objetos.menuherramientas.add_command(label="Reporte Bitacora CSS",
                                          command=lambda: ReporteBitacoraCSS.ReporteBitacoraCSS(
                                              Variables.extensionarchivo))
-    Objetos.menuherramientas.add_separator()
     Objetos.ventanaprincipal.config(menu=Objetos.barrademenu)
 
 

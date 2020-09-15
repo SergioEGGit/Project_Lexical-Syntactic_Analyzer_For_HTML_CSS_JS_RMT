@@ -14,6 +14,7 @@ from src.Variables import Variables
 
 # Analizador Lexico CSS
 def AnalizadorLexicoCSS():
+
     # Asignación
     Variables.columnaauxiliarcss = 1
     Variables.filaauxiliarcss = 1
@@ -1018,7 +1019,6 @@ def VerificarReservasEIdentificadoresCSS():
 
 # Verificar Numeros
 def VerificarNumerosCSS():
-
     # Verificar Si No Estoy Al Final Del Archivo
     if Variables.indexcaractercss < len(Variables.cadenaarchivo):
 
@@ -1137,7 +1137,6 @@ def VerificarNumerosCSS():
 
 # Verificar Identificadores Antes De #
 def VerificarSignoNumeralCSS():
-
     # Verificar Si No Estoy Al Final Del Archivo
     if Variables.indexcaractercss < len(Variables.cadenaarchivo):
 
@@ -1320,11 +1319,26 @@ def VerificarSignoPuntoCSS():
 # Verificar Comentarios
 def VerificarComentariosCSS():
 
+    # Variables
+    bandera = True
+
     # Verificar Si No Estoy Al Final Del Archivo
     if Variables.indexcaractercss < len(Variables.cadenaarchivo):
 
         # Verificar Si Es Cadena De Texto O Comienzo Etiqueta
-        if not re.search(r"[*]", Variables.cadenaarchivo[Variables.indexcaractercss]):
+        if re.search(r"[*]", Variables.cadenaarchivo[Variables.indexcaractercss]):
+
+            if Variables.indexcaractercss + 1 < len(Variables.cadenaarchivo):
+
+                if re.search(r"[/]", Variables.cadenaarchivo[Variables.indexcaractercss + 1]):
+
+                    bandera = False
+
+            else:
+
+                bandera = False
+
+        if bandera:
 
             # Verificar Espacios Vacios
             if re.search(r"[ ]", Variables.cadenaarchivo[Variables.indexcaractercss]):
@@ -1452,7 +1466,6 @@ def VerificarComentariosCSS():
 
 # Verificar Comillas
 def VerificarComillasCSS():
-
     # Verificar Si No Estoy Al Final Del Archivo
     if Variables.indexcaractercss < len(Variables.cadenaarchivo):
 

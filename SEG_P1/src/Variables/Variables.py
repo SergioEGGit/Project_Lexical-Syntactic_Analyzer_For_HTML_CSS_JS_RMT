@@ -68,3 +68,12 @@ dicpalabrasreservadasjs = ["var", "false", "true", "console", "log", "if", "else
                            "break", "return", "function", "constructor", "this", "class", "Math", "pow"]
 listatokensjs = []
 listaerroresjs = []
+
+# Verificar Reporte JS
+existenumero = False
+existeidentificador = False
+existesimbolo = False
+existecadenadetextodobles = False
+existecadenadetextosimple = False
+existecomentariounilinea = False
+existecomentariomultilinea = False
