@@ -385,3 +385,83 @@ def ReporteErroresJS():
 
         # Abrir Reporte HTML
         webbrowser.open_new_tab(pathsalida)
+
+
+# Reporte De Errores RMT
+def ReporteErroresRMT():
+
+    # Variables
+    cadenaarchivo = ""
+    rutastring = ""
+
+    # Asignacion
+    rutastring = "C:\\Reportes\\rmt"
+
+    # Convertir String A Ruta
+    patharchivo = Path(rutastring)
+
+    # Verificar Si Existe El Directorio
+    if not patharchivo.is_dir():
+
+        # Crear Directorios
+        patharchivo.mkdir(parents=True)
+
+    reporteerrores = open(rutastring + "\\ReporteErroresRMT.html", "w")
+
+    # Path Salida
+    pathsalida = rutastring + "\\ReporteErroresRMT.html"
+
+    showinfo("Error!", "No Se Especifico La Ruta Para Guardar El Reporte \n"
+                       "Se Guardara En La Siguiente Ruta: \n"
+                       "C:\\Reportes\\rmt")
+
+    # Escribir Reporte HTML
+    cadenaarchivo = "<html> \n" \
+                    "<head> \n" \
+                    "    <title> Reporte Errores RMT </title> \n" \
+                    "</head> \n" \
+                    "<body bgcolor=\"#FA8072\">  \n" \
+                    "    <center><H1><p style=\"color:#00008B\"> Tabla De Errores </p></H1></center> \n" \
+                    "    <center><table border=\"1\"> \n" \
+                    "    <thead> \n" \
+                    "        <tr bgcolor=\"#FAEBD7\"> \n" \
+                    "            <center><td> No. </td></center> \n" \
+                    "            <center><td> Fila </td></center> \n" \
+                    "            <center><td> Columna </td></center> \n" \
+                    "            <center><td> Caracter </td></center> \n" \
+                    "            <center><td> Descripción </td></center> \n" \
+                    "        </tr> \n"
+
+    # Recorrer Lista De Errores
+    for Error in Variables.listaerroresrmt:
+        # Agregar Error A Archivo
+        cadenaarchivo += "        <tr bgcolor=\"#FFE4E1\"> \n" \
+                         "            <center><td>" + str(Error[0]) + "</td></center> \n" \
+                                                                      "            <center><td>" + \
+                         str(Error[4]) + "</td></center> \n " \
+                        "            <center><td>" + str(Error[3]) + "</td></center> \n" \
+                                                                     "            <center><td>" + Error[
+                             2] + "</td></center> \n" \
+                                  "            <center><td>" \
+                                  "            El Caracter Indicado No Pertene Al Lenguaje </td></center> \n" \
+                                  "        </tr>"
+
+    cadenaarchivo += "    </thead> \n" \
+                     "    </table></center> \n" \
+                     "</body> \n" \
+                     "</html> \n"
+
+    # Escribir En Archivo
+    reporteerrores.write(cadenaarchivo)
+
+    # Cerrar Archivo
+    reporteerrores.close()
+
+    # Preguntar Si Se Desea Abrir El Reporte
+    resultado = askyesno("Reporte De Errores!", "¿Desea Abrir El Reporte De Errores De RMT?")
+
+    # Abrir Archivo
+    if resultado:
+
+        # Abrir Reporte HTML
+        webbrowser.open_new_tab(pathsalida)

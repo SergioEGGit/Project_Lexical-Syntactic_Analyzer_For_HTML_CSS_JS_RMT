@@ -148,6 +148,43 @@ def AutomataComentarioMultilineaJS():
     return cadenatextojs
 
 
+# Automata Completo
+def AutomataCompletoJS():
+
+    # Variables
+    cadenatextojs = "       graph[fontsize = \"36\"] \n" \
+                    "       node[shape = note, color = purple4] \n" \
+                    "       AutomataCompleto [label = \" Automata_Completo \", fontsize = \"20\"] \n" \
+                    "       node[shape = doublecircle, color = purple1, fontsize = \"14\"] Estado_4 Estado_8 " \
+                    "Estado_9 Estado_11; \n" \
+                    "       node[shape = circle, color = purple1, fontsize = \"14\"] \n" \
+                    "       AutomataCompleto -> Estado_0 \n" \
+                    "       Estado_0 -> Estado_1 [label = \" / \", fontsize = \"30\"] \n" \
+                    "       Estado_1 -> Estado_2 [label = \" * \", fontsize = \"30\"] \n" \
+                    "       Estado_2 -> Estado_2 [label = \" Todo \", fontsize = \"15\"] \n" \
+                    "       Estado_2 -> Estado_3 [label = \" * \", fontsize = \"30\"] \n" \
+                    "       Estado_3 -> Estado_4 [label = \" / \", fontsize = \"30\"] \n" \
+                    "       Estado_1 -> Estado_5 [label = \" / \", fontsize = \"30\"] \n" \
+                    "       Estado_5 -> Estado_5 [label = \" Todo \", fontsize = \"15\"] \n" \
+                    "       Estado_5 -> Estado_4 [label = \" Salto_De_Linea \", fontsize = \"15\"] \n" \
+                    "       Estado_0 -> Estado_6 [label = \" \\\" \", fontsize = \"30\"] \n" \
+                    "       Estado_6 -> Estado_6 [label = \" Todo \", fontsize = \"15\"] \n" \
+                    "       Estado_6 -> Estado_4 [label = \" \\\" \", fontsize = \"30\"] \n" \
+                    "       Estado_0 -> Estado_7 [label = \" ' \", fontsize = \"30\"] \n" \
+                    "       Estado_7 -> Estado_7 [label = \" Todo \", fontsize = \"15\"] \n" \
+                    "       Estado_7 -> Estado_4 [label = \" ' \", fontsize = \"30\"] \n" \
+                    "       Estado_0 -> Estado_4 [label = \" Simbolo \", fontsize = \"15\"] \n" \
+                    "       Estado_0 -> Estado_8 [label = \" Letra \", fontsize = \"15\"] \n" \
+                    "       Estado_8 -> Estado_8 [label = \" Letra | Digito | _ \", fontsize = \"15\"] \n" \
+                    "       Estado_0 -> Estado_9 [label = \" Digito \", fontsize = \"15\"] \n" \
+                    "       Estado_9 -> Estado_9 [label = \" Digito \", fontsize = \"15\"] \n" \
+                    "       Estado_9 -> Estado_10 [label = \" . \", fontsize = \"50\"] \n" \
+                    "       Estado_10 -> Estado_11 [label = \" Digito \", fontsize = \"15\"] \n" \
+                    "       Estado_11 -> Estado_11 [label = \" Digito \", fontsize = \"15\"] \n\n"
+
+    return cadenatextojs
+
+
 # Generar Archivo Txt
 def GenerarArchivoTXTJS(cadenatextojs, archivotxt):
 
@@ -159,7 +196,7 @@ def GenerarArchivoTXTJS(cadenatextojs, archivotxt):
 
 
 # Generar Imagen Graphviz
-def GenerarImagenGraphvizJS(cadenareporte):
+def GenerarImagenGraphvizArbolPorPartesJS(cadenareporte):
 
     # Variables
     rutaarchivo = ""
@@ -255,8 +292,105 @@ def GenerarImagenGraphvizJS(cadenareporte):
         subprocess.run(abririmagen, shell=True)
 
 
-# Generar Reporte
-def GenerarGraficaReporte():
+# Generar Imagen Graphviz
+def GenerarImagenGraphvizArbolCompletoJS(cadenareporte):
+
+    # Variables
+    rutaarchivo = ""
+    cadenaarchivo = ""
+    rutastring = ""
+    listacomentarios = []
+    listasplit = []
+
+    # Asignacion
+    rutastring = "C:\\Reportes\\js"
+    listacomentarios[:] = []
+    listasplit[:] = []
+
+    # Obtener Ruta Archivo
+    for Tokens in Variables.listatokensjs:
+
+        # Obtener Comentarios
+        if Tokens[1] == "Comentario_UniLinea":
+
+            # Agregar Token A Lista
+            listacomentarios.append(Tokens[2].strip())
+
+    # Obtener Ruta Archivo
+    for Comentario in listacomentarios:
+
+        # Verificar Que Contenga Una Ruta
+        if ":" in Comentario:
+
+            # Split Comentario
+            listasplit = Comentario.split(":", maxsplit=1)
+
+            # Verificar Si La Ruta Es Valida
+            if listasplit[0].strip() == "PATHW":
+
+                # Obtener Ruta Para Windows
+                rutaarchivo = listasplit[1].strip()
+
+    # Verificar Ruta Archivo
+    if rutaarchivo != "":
+
+        # Convertir String A Ruta
+        patharchivo = Path(rutaarchivo)
+
+        # Verificar Si Existe El Directorio
+        if not patharchivo.is_dir():
+            # Crear Directorios
+            patharchivo.mkdir(parents=True)
+
+        # Generar Archivo De Texto
+        GenerarArchivoTXTJS(cadenareporte, rutaarchivo + "Automata_Completo.txt")
+
+        # Crear Archivo
+        comandographviz = "dot -Tpng -o " + rutaarchivo + "Automata_Completo.png " + rutaarchivo \
+                          + "Automata_Completo.txt"
+        subprocess.run(comandographviz, shell=True)
+
+        # Path Salida
+        pathsalida = rutaarchivo + "Automata_Completo.png"
+
+    else:
+
+        # Convertir String A Ruta
+        patharchivo = Path(rutastring)
+
+        # Verificar Si Existe El Directorio
+        if not patharchivo.is_dir():
+            # Crear Directorios
+            patharchivo.mkdir(parents=True)
+
+        # Generar Archivo De Texto
+        GenerarArchivoTXTJS(cadenareporte, rutastring + "\\Automata_Completo.txt")
+
+        # Crear Archivo
+        comandographviz = "dot -Tpng -o " + rutastring + "\\Automata_Completo.png " + rutastring \
+                          + "\\Automata_Completo.txt"
+        subprocess.run(comandographviz, shell=True)
+
+        # Path Salida
+        pathsalida = rutastring + "\\Automata_Completo.png"
+
+        showinfo("Error!", "No Se Especifico La Ruta Para Guardar El Reporte \n"
+                           "Se Guardara En La Siguiente Ruta: \n"
+                           "C:\\Reportes\\js")
+
+    # Preguntar Si Se Desea Abrir El Reporte
+    resultado = askyesno("Reporte Automatat JS!", "¿Desea Abrir El Reporte La Imagen Del Automata?")
+
+    # Abrir Archivo
+    if resultado:
+
+        # Abrir Imagen
+        abririmagen = pathsalida + " &"
+        subprocess.run(abririmagen, shell=True)
+
+
+# Generar Reporte Arbol Por Partes
+def GenerarGraficaReporteArbolPorPartesJS():
 
     # Verificar Extension
     if Variables.extensionarchivo == "js":
@@ -292,7 +426,30 @@ def GenerarGraficaReporte():
         cadenareporte += "} \n"
 
         # Generar Imagen
-        GenerarImagenGraphvizJS(cadenareporte)
+        GenerarImagenGraphvizArbolPorPartesJS(cadenareporte)
+
+    else:
+
+        showinfo("Error!", "Aún No Se Ha Realizado Un Análsis De JS")
+
+
+# Generar Reporte Arbol Completo
+def GenerarGraficaReporteArbolCompletoJS():
+
+    # Verificar Extension
+    if Variables.extensionarchivo == "js":
+
+        # Variables
+        cadenareporte = ""
+
+        # Asignación
+        cadenareporte += "digraph Automata_Completo { \n\n" \
+                         "    rankdir = LR; \n\n"
+        cadenareporte += AutomataCompletoJS()
+        cadenareporte += "} \n"
+
+        # Generar Imagen
+        GenerarImagenGraphvizArbolCompletoJS(cadenareporte)
 
     else:
 

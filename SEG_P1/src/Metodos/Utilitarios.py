@@ -9,7 +9,7 @@ from tkinter.messagebox import askyesnocancel, showinfo, askyesno
 from src.Design import Objetos
 from src.Variables import Variables
 from src.Analizadores import AnalizadorLexicoHMTL as AnalizadorHTML, AnalizadorLexicoCSS as AnalizadorCSS, \
-    AnalizadorLexicoJS as AnalizadorJS
+    AnalizadorLexicoJS as AnalizadorJS, AnalizadorLexicoRMT as AnalizadorRMT
 
 
 # ----------------------------------------------------Métodos-----------------------------------------------------------
@@ -148,7 +148,7 @@ def ModuloDecisionAnalizador():
 
         elif Variables.extensionarchivo.strip() == "rmt":
 
-            print("Analisis Sintactico")
+            AnalizadorRMT.AnalizadorLexicoRMT()
     else:
 
         showinfo("Información", "Aún No Se Ha Abierto Ningún Archivo Valido")
@@ -423,6 +423,49 @@ def ArchivoSinErroresJS(nombrearchivo):
         subprocess.run(["notepad", pathsalida])
 
 
+# Generar Archivo RMT Sin Errores
+def ArchivoSinErroresRMT(nombrearchivo):
+
+    # Variables
+    rutastring = ""
+
+    # Asignacion
+    rutastring = "C:\\Output\\rmt"
+
+    # Convertir String A Ruta
+    patharchivo = Path(rutastring)
+
+    # Verificar Si Existe El Directorio
+    if not patharchivo.is_dir():
+        # Crear Directorios
+        patharchivo.mkdir(parents=True)
+
+    reporteerrores = open(rutastring + "\\" + nombrearchivo + "_Corregido.rmt", "w")
+
+    # Path Salida
+    pathsalida = rutastring + "\\" + nombrearchivo + "_Corregido.rmt"
+
+    showinfo("Error!", "No Se Especifico La Ruta Para Guardar El Archivo \n"
+                       "Se Guardara En La Siguiente Ruta: \n" +
+             rutastring)
+
+    # Escribir En Archivo
+    reporteerrores.write(Variables.archivormt)
+
+    # Cerrar Archivo
+    reporteerrores.close()
+
+    # Preguntar Si Se Desea Abrir El Reporte
+    resultado = askyesno("Archivo Corregidos!", "¿Desea Abrir El Archivo Corregido?")
+
+    # Abrir Archivo
+    if resultado:
+
+        # Abrir Archivos Corregidos
+        # Abrir Archivo JS
+        subprocess.run(["notepad", pathsalida])
+
+
 # Mostrar Tokens
 def MostrarTokens(extensionarchivo):
     # Variables
@@ -450,6 +493,13 @@ def MostrarTokens(extensionarchivo):
 
         # Mostrar Tokens
         for Token in Variables.listatokensjs:
+            listatokens += "Id: " + str(Token[0]) + "." + "  Tipo: " + Token[1] + "." + "  Lexema: " + Token[2] + "." \
+                           + "  Columna: " + str(Token[3]) + "." + "  Fila: " + str(Token[4]) + "." + "\n\n"
+
+    elif extensionarchivo == "rmt":
+
+        # Mostrar Tokens
+        for Token in Variables.listatokensrmt:
             listatokens += "Id: " + str(Token[0]) + "." + "  Tipo: " + Token[1] + "." + "  Lexema: " + Token[2] + "." \
                            + "  Columna: " + str(Token[3]) + "." + "  Fila: " + str(Token[4]) + "." + "\n\n"
 
@@ -485,6 +535,13 @@ def MostrarErrores(extensionarchivo):
 
         # Mostrar Errores
         for Error in Variables.listaerroresjs:
+            listaerrores += "Id: " + str(Error[0]) + "." + "  Tipo: " + Error[1] + "." + "  Lexema: " + Error[2] + "." \
+                            + "  Columna: " + str(Error[3]) + "." + "  Fila: " + str(Error[4]) + "." + "\n\n"
+
+    elif extensionarchivo == "rmt":
+
+        # Mostrar Errores
+        for Error in Variables.listaerroresrmt:
             listaerrores += "Id: " + str(Error[0]) + "." + "  Tipo: " + Error[1] + "." + "  Lexema: " + Error[2] + "." \
                             + "  Columna: " + str(Error[3]) + "." + "  Fila: " + str(Error[4]) + "." + "\n\n"
 

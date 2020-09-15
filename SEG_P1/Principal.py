@@ -1,6 +1,7 @@
 # ----------------------------------------------Imports-----------------------------------------------------------------
 from src.Design import Objetos
 from src.Design import Configuracion
+from src.Analizadores import AnalizadorSintacticoRMT
 
 # -----------------------------------------------Metodos----------------------------------------------------------------
 

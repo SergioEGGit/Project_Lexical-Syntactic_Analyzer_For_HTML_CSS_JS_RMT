@@ -65,10 +65,11 @@ contadorerroresjs = 0
 auxiliarlexicojs = ""
 archivojs = ""
 dicpalabrasreservadasjs = ["var", "false", "true", "console", "log", "if", "else", "for", "while", "do", "continue",
-                           "break", "return", "function", "constructor", "this", "class", "Math", "pow"]
+                           "break", "return", "function", "constructor", "this", "class", "Math", "pow", "window",
+                           "location", "document", "push", "pop", "append", "null", "new", "parseInt", "parse",
+                           "forEach", "appendChild"]
 listatokensjs = []
 listaerroresjs = []
-
 # Verificar Reporte JS
 existenumero = False
 existeidentificador = False
@@ -77,3 +78,15 @@ existecadenadetextodobles = False
 existecadenadetextosimple = False
 existecomentariounilinea = False
 existecomentariomultilinea = False
+
+# Analizador RMT
+columnaauxiliarrmt = 0
+filaauxiliarrmt = 0
+indexcaracterrmt = 0
+contadortokensrmt = 0
+contadorerroresrmt = 0
+auxiliarlexicormt = ""
+archivormt = ""
+listatokensrmt = []
+listaerroresrmt = []
+listaerroreslexicosrmt = []

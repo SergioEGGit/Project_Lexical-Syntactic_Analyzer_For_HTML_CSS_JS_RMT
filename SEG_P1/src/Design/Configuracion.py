@@ -43,8 +43,10 @@ def Menu():
     Objetos.menuherramientas.add_command(label="Mostar Errores",
                                          command=lambda: Utilitarios.MostrarErrores(Variables.extensionarchivo))
     Objetos.menuherramientas.add_separator()
-    Objetos.menuherramientas.add_command(label="Reporte Partes Automata JS",
-                                         command=lambda: ReporteAutomataJS.GenerarGraficaReporte())
+    Objetos.menuherramientas.add_command(label="Reporte Automata Por Partes JS",
+                                         command=lambda: ReporteAutomataJS.GenerarGraficaReporteArbolPorPartesJS())
+    Objetos.menuherramientas.add_command(label="Reporte Automata Completo JS",
+                                         command=lambda: ReporteAutomataJS.GenerarGraficaReporteArbolCompletoJS())
     Objetos.menuherramientas.add_command(label="Reporte Bitacora CSS",
                                          command=lambda: ReporteBitacoraCSS.ReporteBitacoraCSS(
                                              Variables.extensionarchivo))
