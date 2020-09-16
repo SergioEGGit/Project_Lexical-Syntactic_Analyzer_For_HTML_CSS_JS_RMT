@@ -1,4 +1,6 @@
 # ---------------------------------------------------Imports------------------------------------------------------------
+from tkinter.messagebox import showinfo
+
 from src.Variables import Variables
 from src.Design import Objetos
 
@@ -8,21 +10,26 @@ from src.Design import Objetos
 # Reporte Bitacora CSS
 def ReporteBitacoraCSS(extensionarchivo):
 
-    # Variables
-    bitacoracsstexto = ""
+    if Variables.extensionarchivo == "css":
 
-    # Cambiar De Color
-    Objetos.richtextboxconsola.config(fg='#228B22', font=("arial", 14), background='#FAF0E6')
+        # Variables
+        bitacoracsstexto = ""
 
-    # Modulo De Decision
-    if extensionarchivo == "css":
+        # Cambiar De Color
+        Objetos.richtextboxconsola.config(fg='#228B22', font=("arial", 14), background='#FAF0E6')
 
-        # Añadir Bitacora
-        for Linea in Variables.bitacoracss:
+        # Modulo De Decision
+        if extensionarchivo == "css":
 
-            bitacoracsstexto += "Id: " + str(Linea[0]) + "." + "  Descripcion: " + Linea[1] + "." + " " + Linea[2] + \
-                                "." + "\n\n"
+            # Añadir Bitacora
+            for Linea in Variables.bitacoracss:
+                bitacoracsstexto += "Id: " + str(Linea[0]) + "." + "  Descripcion: " + Linea[1] + "." + " " + Linea[2] + \
+                                    "." + "\n\n"
 
-    # Insertar Texto
-    Objetos.richtextboxconsola.delete(1.0, "end-1c")
-    Objetos.richtextboxconsola.insert("end-1c", bitacoracsstexto)
+        # Insertar Texto
+        Objetos.richtextboxconsola.delete(1.0, "end-1c")
+        Objetos.richtextboxconsola.insert("end-1c", bitacoracsstexto)
+        
+    else:
+    
+        showinfo("Error!", "Aún No Se Ha Realizado Un Análsis De CSS")

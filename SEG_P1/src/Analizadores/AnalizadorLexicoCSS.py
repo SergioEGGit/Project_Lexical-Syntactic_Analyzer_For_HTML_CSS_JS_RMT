@@ -14,7 +14,6 @@ from src.Variables import Variables
 
 # Analizador Lexico CSS
 def AnalizadorLexicoCSS():
-
     # Asignación
     Variables.columnaauxiliarcss = 1
     Variables.filaauxiliarcss = 1
@@ -28,6 +27,7 @@ def AnalizadorLexicoCSS():
     Variables.bitacoracss[:] = []
     Variables.listatokenscss[:] = []
     Variables.listaerrorescss[:] = []
+    Variables.numeral = False
 
     # Comienzo A Recorrer Archivo
     while Variables.indexcaractercss < len(Variables.cadenaarchivo):
@@ -313,7 +313,15 @@ def AnalizadorLexicoCSS():
                     # Archivo Sin Errores
                     Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
-                    # Aceptar Cadena Como Valida
+                    # Sumar Columna
+                    if Variables.contadortokenscss - 2 >= 0:
+
+                        if Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Comentario" or \
+                                Variables.listatokenscss[Variables.contadortokenscss - 2][
+                                    1].strip() == "Identificador" or \
+                                Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == \
+                                "Palabra_Reservada":
+                            Variables.columnaauxiliarcss += 1
 
                     # Agregar Token A Lista
                     Variables.listatokenscss.append(
@@ -342,6 +350,7 @@ def AnalizadorLexicoCSS():
                 Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
                 # Aceptar Cadena Como Valida
+                # Variables.columnaauxiliarcss += 1
 
                 # Agregar Token A Lista
                 Variables.listatokenscss.append(
@@ -370,6 +379,13 @@ def AnalizadorLexicoCSS():
             # Archivo Sin Errores
             Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
+            # Sumar Columna
+            if Variables.contadortokenscss - 2 >= 0:
+
+                if Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Identificador" or \
+                        Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Palabra_Reservada":
+                    Variables.columnaauxiliarcss += 1
+
             # Aceptar Cadena Como Valida
 
             # Agregar Token A Lista
@@ -380,6 +396,45 @@ def AnalizadorLexicoCSS():
             # Agregar Estado 20 A Bitacora
             Variables.bitacoracss.append([Variables.contadorbitacora, "Estado 20: Aceptacion Simbolo {",
                                           "Token Aceptado: {"])
+            Variables.contadorbitacora += 1
+
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            if not Variables.numeral:
+                Variables.columnaauxiliarcss += 1
+                Variables.numeral = False
+
+            Variables.indexcaractercss += 1
+            Variables.contadortokenscss += 1
+
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicocss = ""
+
+        # Verificar Signo %
+        elif re.search(r"[%]", Variables.cadenaarchivo[Variables.indexcaractercss]):
+
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
+
+            # Archivo Sin Errores
+            Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
+
+            # Sumar Columna
+            if Variables.indexcaractercss - 1 > 0:
+
+                if re.search(r"[a-zA-Z_0-9]", Variables.cadenaarchivo[Variables.indexcaractercss - 1]):
+                    print("")
+                    # Variables.columnaauxiliarcss += 1
+
+            # Aceptar Cadena Como Valida
+
+            # Agregar Token A Lista
+            Variables.listatokenscss.append(
+                [Variables.contadortokenscss, "Simbolo", Variables.auxiliarlexicocss,
+                 Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
+
+            # Agregar Estado 20 A Bitacora
+            Variables.bitacoracss.append([Variables.contadorbitacora, "Estado 12: Aceptacion Simbolo %",
+                                          "Token Aceptado: %"])
             Variables.contadorbitacora += 1
 
             # Sumar Columna, Contador Tokens E Indice Del Array
@@ -429,7 +484,11 @@ def AnalizadorLexicoCSS():
             Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
             # Sumar Columna
-            Variables.columnaauxiliarcss += 1
+            if Variables.contadortokenscss - 2 >= 0:
+
+                if Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Identificador" or \
+                        Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Palabra_Reservada":
+                    Variables.columnaauxiliarcss += 1
 
             # Aceptar Cadena Como Valida
 
@@ -459,6 +518,13 @@ def AnalizadorLexicoCSS():
 
             # Archivo Sin Errores
             Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
+
+            # Sumar Columna
+            if Variables.contadortokenscss - 2 >= 0:
+
+                if Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Identificador" or \
+                        Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Palabra_Reservada":
+                    Variables.columnaauxiliarcss += 1
 
             # Sumar Columna
             # Variables.columnaauxiliarcss += 1
@@ -493,7 +559,11 @@ def AnalizadorLexicoCSS():
             Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
             # Sumar Columna
-            Variables.columnaauxiliarcss += 1
+            if Variables.contadortokenscss - 2 >= 0:
+
+                if Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Identificador" or \
+                        Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Palabra_Reservada":
+                    Variables.columnaauxiliarcss += 1
 
             # Aceptar Cadena Como Valida
 
@@ -525,13 +595,13 @@ def AnalizadorLexicoCSS():
             Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
             # Sumar Columna
-            Variables.columnaauxiliarcss += 1
+            # Variables.columnaauxiliarcss += 1
 
             # Aceptar Cadena Como Valida
 
             # Agregar Token A Lista
             Variables.listatokenscss.append(
-                [Variables.contadortokenscss, "Simbolo", Variables.auxiliarlexicocss,
+                [Variables.contadortokenscss, "Operador", Variables.auxiliarlexicocss,
                  Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
 
             # Agregar Estado 25 A Bitacora
@@ -654,194 +724,77 @@ def AnalizadorLexicoCSS():
                 Variables.numerocomillas = 0
                 Variables.columnaauxiliarcss -= 1
 
-                # Verificar Signo #
+        # Verificar Signo #
         elif re.search(r"[#]", Variables.cadenaarchivo[Variables.indexcaractercss]):
 
-            if Variables.indexcaractercss + 1 < len(Variables.cadenaarchivo):
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
-                if re.search(r"[a-zA-Z0-9]", Variables.cadenaarchivo[Variables.indexcaractercss + 1]):
+            # Archivo Sin Errores
+            Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
-                    # Agregar Caracter A Auxiliar Lexico
-                    Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
+            # Sumar Columna
+            if Variables.contadortokenscss - 2 >= 0:
 
-                    # Archivo Sin Errores
-                    Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
-
-                    # Sumar Columna
+                if Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Identificador" or \
+                        Variables.listatokenscss[Variables.contadortokenscss - 2][1].strip() == "Palabra_Reservada":
                     Variables.columnaauxiliarcss += 1
 
-                    # Aceptar Cadena Como Valida
+            # Aceptar Cadena Como Valida
 
-                    # Agregar Token A Lista
-                    Variables.listatokenscss.append(
-                        [Variables.contadortokenscss, "Simbolo", Variables.auxiliarlexicocss,
-                         Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
+            # Agregar Token A Lista
+            Variables.listatokenscss.append(
+                [Variables.contadortokenscss, "Simbolo", Variables.auxiliarlexicocss,
+                 Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
 
-                    # Agregar Estado 34 A Bitacora
-                    Variables.bitacoracss.append([Variables.contadorbitacora, "Estado 34: Aceptacion Simbolo # Comienza"
-                                                                              "Reconomiento Cadena Especial",
-                                                  "Token Aceptado: #"])
-                    Variables.contadorbitacora += 1
+            # Agregar Estado 34 A Bitacora
+            Variables.bitacoracss.append([Variables.contadorbitacora, "Estado 34: Aceptacion Simbolo #",
+                                          "Token Aceptado: #"])
+            Variables.contadorbitacora += 1
 
-                    # Sumar Columna, Contador Tokens E Indice Del Array
-                    Variables.columnaauxiliarcss += 1
-                    Variables.indexcaractercss += 1
-                    Variables.contadortokenscss += 1
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarcss += 1
+            Variables.indexcaractercss += 1
+            Variables.contadortokenscss += 1
 
-                    # Vaciar Auxiliar Lexico
-                    Variables.auxiliarlexicocss = ""
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicocss = ""
 
-                    # Verificar Color
-                    VerificarSignoNumeralCSS()
-
-                else:
-
-                    # Agregar Caracter A Auxiliar Lexico
-                    Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
-
-                    # Sumar Columna
-                    Variables.columnaauxiliarcss += 1
-
-                    # Aceptar Cadena Como Valida
-
-                    # Agregar Token A Lista
-                    Variables.listaerrorescss.append(
-                        [Variables.contadorerrorescss, "Error_Lexico", Variables.auxiliarlexicocss,
-                         Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
-
-                    # Agregar Estado Error A Bitacora
-                    Variables.bitacoracss.append([Variables.contadorbitacora, "Estado Error: Error Lexico",
-                                                  "Error: #"])
-                    Variables.contadorbitacora += 1
-
-                    # Sumar Contador Tokens E Indice Del Array
-                    Variables.indexcaractercss += 1
-                    Variables.contadorerrorescss += 1
-
-                    # Vaciar Auxiliar Lexico
-                    Variables.auxiliarlexicocss = ""
-
-            else:
-
-                # Agregar Caracter A Auxiliar Lexico
-                Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
-
-                # Sumar Columna
-                Variables.columnaauxiliarcss += 1
-
-                # Aceptar Cadena Como Valida
-
-                # Agregar Token A Lista
-                Variables.listaerrorescss.append(
-                    [Variables.contadorerrorescss, "Error_Lexico", Variables.auxiliarlexicocss,
-                     Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
-
-                # Agregar Estado Error A Bitacora
-                Variables.bitacoracss.append([Variables.contadorbitacora, "Estado Error: Error Lexico",
-                                              "Error: #"])
-                Variables.contadorbitacora += 1
-
-                # Sumar Contador Tokens E Indice Del Array
-                Variables.indexcaractercss += 1
-                Variables.contadorerrorescss += 1
-
-                # Vaciar Auxiliar Lexico
-                Variables.auxiliarlexicocss = ""
+            VerificarSignoNumeralCSS()
 
         # Verificar Signo .
         elif re.search(r"[.]", Variables.cadenaarchivo[Variables.indexcaractercss]):
 
-            if Variables.indexcaractercss + 1 < len(Variables.cadenaarchivo):
+            # Agregar Caracter A Auxiliar Lexico
+            Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
-                if re.search(r"[a-zA-Z0-9]", Variables.cadenaarchivo[Variables.indexcaractercss + 1]):
+            # Archivo Sin Errores
+            Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
-                    # Agregar Caracter A Auxiliar Lexico
-                    Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
+            # Aceptar Cadena Como Valida
 
-                    # Archivo Sin Errores
-                    Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
+            # Agregar Token A Lista
+            Variables.listatokenscss.append(
+                [Variables.contadortokenscss, "Simbolo", Variables.auxiliarlexicocss,
+                 Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
 
-                    # Sumar Columna
-                    Variables.columnaauxiliarcss += 1
+            # Agregar Estado 38 A Bitacora
+            Variables.bitacoracss.append(
+                [Variables.contadorbitacora, "Estado 38: Aceptacion Simbolo . - Comienza Reconocimiento"
+                                             " Cadena Especial",
+                 "Token Aceptado: ."])
+            Variables.contadorbitacora += 1
 
-                    # Aceptar Cadena Como Valida
+            # Sumar Columna, Contador Tokens E Indice Del Array
+            Variables.columnaauxiliarcss += 1
+            Variables.indexcaractercss += 1
+            Variables.contadortokenscss += 1
 
-                    # Agregar Token A Lista
-                    Variables.listatokenscss.append(
-                        [Variables.contadortokenscss, "Simbolo", Variables.auxiliarlexicocss,
-                         Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
+            # Vaciar Auxiliar Lexico
+            Variables.auxiliarlexicocss = ""
 
-                    # Agregar Estado 38 A Bitacora
-                    Variables.bitacoracss.append(
-                        [Variables.contadorbitacora, "Estado 38: Aceptacion Simbolo . - Comienza Reconocimiento"
-                                                     " Cadena Especial",
-                         "Token Aceptado: ."])
-                    Variables.contadorbitacora += 1
-
-                    # Sumar Columna, Contador Tokens E Indice Del Array
-                    Variables.columnaauxiliarcss += 1
-                    Variables.indexcaractercss += 1
-                    Variables.contadortokenscss += 1
-
-                    # Vaciar Auxiliar Lexico
-                    Variables.auxiliarlexicocss = ""
-
-                    # Verificar Color
-                    VerificarSignoPuntoCSS()
-
-                else:
-
-                    # Agregar Caracter A Auxiliar Lexico
-                    Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
-
-                    # Sumar Columna
-                    Variables.columnaauxiliarcss += 1
-
-                    # Aceptar Cadena Como Valida
-
-                    # Agregar Token A Lista
-                    Variables.listaerrorescss.append(
-                        [Variables.contadorerrorescss, "Error_Lexico", Variables.auxiliarlexicocss,
-                         Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
-
-                    # Agregar Estado Error A Bitacora
-                    Variables.bitacoracss.append([Variables.contadorbitacora, "Estado Error: Error Lexico",
-                                                  "Error: ."])
-                    Variables.contadorbitacora += 1
-
-                    # Sumar Contador Tokens E Indice Del Array
-                    Variables.indexcaractercss += 1
-                    Variables.contadorerrorescss += 1
-
-                    # Vaciar Auxiliar Lexico
-                    Variables.auxiliarlexicocss = ""
-
-            else:
-
-                # Agregar Caracter A Auxiliar Lexico
-                Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
-
-                # Sumar Columna
-                Variables.columnaauxiliarcss += 1
-
-                # Aceptar Cadena Como Valida
-
-                # Agregar Token A Lista
-                Variables.listaerrorescss.append(
-                    [Variables.contadorerrorescss, "Error_Lexico", Variables.auxiliarlexicocss,
-                     Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
-
-                # Agregar Estado Error A Bitacora
-                Variables.bitacoracss.append([Variables.contadorbitacora, "Estado Error: Error Lexico",
-                                              "Error: ."])
-                Variables.contadorbitacora += 1
-
-                # Sumar Contador Tokens E Indice Del Array
-                Variables.indexcaractercss += 1
-                Variables.contadorerrorescss += 1
-
-                # Vaciar Auxiliar Lexico
-                Variables.auxiliarlexicocss = ""
+            # Verificar Color
+            VerificarSignoPuntoCSS()
 
         # Verficar Errores Lexicos
         else:
@@ -850,7 +803,56 @@ def AnalizadorLexicoCSS():
             Variables.auxiliarlexicocss += Variables.cadenaarchivo[Variables.indexcaractercss]
 
             # Sumar Columna
-            Variables.columnaauxiliarcss += 1
+            if Variables.contadortokenscss - 2 > 0:
+
+                if Variables.indexcaractercss + 1 < len(Variables.cadenaarchivo):
+
+                    if Variables.cadenaarchivo[Variables.indexcaractercss - 1] == " ":
+
+                        Variables.columnaauxiliarcss += 1
+
+                    elif Variables.listatokenscss[Variables.contadortokenscss - 2][1] == "Identificador" or \
+                            Variables.listatokenscss[Variables.contadortokenscss - 2][1] == "Palabra_Reservada":
+
+                        if Variables.contadortokenscss - 3 > 0:
+
+                            if Variables.listatokenscss[Variables.contadortokenscss - 3][2] == "#":
+
+                                # Variables.columnaauxiliarcss -= 1
+                                print("")
+
+                            else:
+
+                                Variables.columnaauxiliarcss += 1
+                        else:
+
+                            Variables.columnaauxiliarcss += 1
+
+                    else:
+
+                        Variables.columnaauxiliarcss += 1
+
+                else:
+
+                    if Variables.listatokenscss[Variables.contadortokenscss - 2][1] == "Identificador" or \
+                            Variables.listatokenscss[Variables.contadortokenscss - 2][1] == "Palabra_Reservada":
+
+                        if Variables.contadortokenscss - 3 > 0:
+
+                            if Variables.listatokenscss[Variables.contadortokenscss - 3][2] == "#":
+
+                                # Variables.columnaauxiliarcss -= 1
+                                print("")
+
+                            else:
+
+                                Variables.columnaauxiliarcss += 1
+                        else:
+
+                            Variables.columnaauxiliarcss += 1
+                    else:
+
+                        Variables.columnaauxiliarcss += 1
 
             # Aceptar Cadena Como Valida
 
@@ -859,12 +861,14 @@ def AnalizadorLexicoCSS():
                 [Variables.contadorerrorescss, "Error_Lexico", Variables.auxiliarlexicocss,
                  Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
 
-            # Agregar Estado Error A Bitacora
-            Variables.bitacoracss.append([Variables.contadorbitacora, "Estado Error: Error Lexico",
-                                          "Error: " + Variables.auxiliarlexicocss])
-            Variables.contadorbitacora += 1
-
             # Sumar Contador Tokens E Indice Del Array
+
+            if Variables.indexcaractercss + 1 < len(Variables.cadenaarchivo):
+
+                if re.search(r"[a-zA-Z-0-9]", Variables.cadenaarchivo[Variables.indexcaractercss + 1]):
+
+                    Variables.columnaauxiliarcss += 1
+
             Variables.indexcaractercss += 1
             Variables.contadorerrorescss += 1
 
@@ -958,6 +962,7 @@ def VerificarReservasEIdentificadoresCSS():
 
             # Ubicar La Columna Del Final De La Cadena
             Variables.columnaauxiliarcss -= 1
+            Variables.numeral = False
 
             # Asignar Tipo
             tipocadena = "Identificador"
@@ -995,6 +1000,7 @@ def VerificarReservasEIdentificadoresCSS():
 
         # Ubicar La Columna Del Final De La Cadena
         Variables.columnaauxiliarcss -= 1
+        Variables.numeral = False
 
         # Asignar Tipo
         tipocadena = "Identificador"
@@ -1062,35 +1068,6 @@ def VerificarNumerosCSS():
             # Sumar Columna E Indice Del Array
             Variables.columnaauxiliarcss += 1
             Variables.indexcaractercss += 1
-
-            # Verificar Cadena Completa
-            VerificarNumerosCSS()
-
-        # Verificar Simbolo %
-        elif re.search(r"[%]", Variables.cadenaarchivo[Variables.indexcaractercss]):
-
-            # Archivo Sin Errores
-            Variables.archivocss += Variables.cadenaarchivo[Variables.indexcaractercss]
-
-            # Sumar Columna
-            Variables.columnaauxiliarcss += 1
-
-            # Aceptar Cadena Como Valida
-
-            # Agregar Token A Lista
-            Variables.listatokenscss.append(
-                [Variables.contadortokenscss, "Simbolo", "%",
-                 Variables.columnaauxiliarcss, Variables.filaauxiliarcss])
-
-            # Agregar Estado 12 A Bitacora
-            Variables.bitacoracss.append([Variables.contadorbitacora, "Estado 12: Aceptacion Simbolo %",
-                                          "Token Aceptado: %"])
-            Variables.contadorbitacora += 1
-
-            # Sumar Columna, Contador Tokens E Indice Del Array
-            Variables.columnaauxiliarcss += 1
-            Variables.indexcaractercss += 1
-            Variables.contadortokenscss += 1
 
             # Verificar Cadena Completa
             VerificarNumerosCSS()
@@ -1188,6 +1165,7 @@ def VerificarSignoNumeralCSS():
 
             # Ubicar La Columna Del Final De La Cadena
             Variables.columnaauxiliarcss -= 1
+            Variables.numeral = True
 
             # Agregar Token A La Lista
             Variables.listatokenscss.append(
@@ -1212,6 +1190,7 @@ def VerificarSignoNumeralCSS():
 
         # Ubicar La Columna Del Final De La Cadena
         Variables.columnaauxiliarcss -= 1
+        Variables.numeral = True
 
         # Agregar Token A La Lista
         Variables.listatokenscss.append(
@@ -1320,7 +1299,6 @@ def VerificarSignoPuntoCSS():
 
 # Verificar Comentarios
 def VerificarComentariosCSS():
-
     # Variables
     bandera = True
 
@@ -1333,7 +1311,6 @@ def VerificarComentariosCSS():
             if Variables.indexcaractercss + 1 < len(Variables.cadenaarchivo):
 
                 if re.search(r"[/]", Variables.cadenaarchivo[Variables.indexcaractercss + 1]):
-
                     bandera = False
 
             else:

@@ -6,6 +6,7 @@ from tkinter.messagebox import showinfo, askyesno
 from src.Design import Objetos
 from src.Metodos import ColorearTexto, Utilitarios
 from src.Reportes import ReporteErrores
+from src.Analizadores import AnalizadorSintacticoRMT
 from src.Variables import Variables
 
 
@@ -14,6 +15,7 @@ from src.Variables import Variables
 
 # Analizador Lexico rmt
 def AnalizadorLexicoRMT():
+
     # Variables
     bandera = False
 
@@ -93,7 +95,7 @@ def AnalizadorLexicoRMT():
             # Verificar Palabra Completa
             VerificarNumerosEnterosDecimalesRMT()
 
-            # Verificar Signo (+)
+        # Verificar Signo (+)
         elif re.search(r"[+]", Variables.cadenaarchivo[Variables.indexcaracterrmt]):
 
             # Agregar Caracter A Auxiliar Lexico
@@ -106,7 +108,7 @@ def AnalizadorLexicoRMT():
 
             # Agregar Token A Lista
             Variables.listatokensrmt.append(
-                [Variables.contadortokensrmt, "Simbolo", Variables.auxiliarlexicormt,
+                [Variables.contadortokensrmt, "Operador", Variables.auxiliarlexicormt,
                  Variables.columnaauxiliarrmt, Variables.filaauxiliarrmt])
 
             # Reportes Automatas
@@ -133,7 +135,7 @@ def AnalizadorLexicoRMT():
 
             # Agregar Token A Lista
             Variables.listatokensrmt.append(
-                [Variables.contadortokensrmt, "Simbolo", Variables.auxiliarlexicormt,
+                [Variables.contadortokensrmt, "Operador", Variables.auxiliarlexicormt,
                  Variables.columnaauxiliarrmt, Variables.filaauxiliarrmt])
 
             # Reportes Automatas
@@ -160,7 +162,7 @@ def AnalizadorLexicoRMT():
 
             # Agregar Token A Lista
             Variables.listatokensrmt.append(
-                [Variables.contadortokensrmt, "Simbolo", Variables.auxiliarlexicormt,
+                [Variables.contadortokensrmt, "Operador", Variables.auxiliarlexicormt,
                  Variables.columnaauxiliarrmt, Variables.filaauxiliarrmt])
 
             # Reportes Automatas
@@ -187,7 +189,7 @@ def AnalizadorLexicoRMT():
 
             # Agregar Token A Lista
             Variables.listatokensrmt.append(
-                [Variables.contadortokensrmt, "Simbolo", Variables.auxiliarlexicormt,
+                [Variables.contadortokensrmt, "Operador", Variables.auxiliarlexicormt,
                  Variables.columnaauxiliarrmt, Variables.filaauxiliarrmt])
 
             # Reportes Automatas
@@ -287,7 +289,9 @@ def AnalizadorLexicoRMT():
             Variables.auxiliarlexicormt = ""
 
     # Colorear Texto
-    ColorearTexto.ColorearTexto(Variables.listatokensrmt)
+    Objetos.richtextboxarchivo.tag_add("black", "1.0", "end-1c")
+    Objetos.richtextboxarchivo.tag_config("black", foreground="black")
+    ColorearTexto.ColorearTextoRMT()
 
     # Generar Reporte De Errores
     if Variables.listaerroresrmt:
@@ -316,6 +320,9 @@ def AnalizadorLexicoRMT():
     else:
 
         showinfo("Exito!", "El Análisis Se Completo Con Exito!")
+
+    # Análisis Sintactico
+    AnalizadorSintacticoRMT.AnalizadorSintacticoRMT()
 
 
 # Verificar Identificadores
@@ -359,7 +366,7 @@ def VerificarIdentificadoresRMT():
 
             # Agregar Token A Lista
             Variables.listatokensrmt.append(
-                [Variables.contadortokensrmt, "Identificacdor", Variables.auxiliarlexicormt,
+                [Variables.contadortokensrmt, "Identificador", Variables.auxiliarlexicormt,
                  Variables.columnaauxiliarrmt,
                  Variables.filaauxiliarrmt])
 
@@ -425,7 +432,7 @@ def VerificarNumerosEnterosDecimalesRMT():
 
             # Agregar Token A La Lista
             Variables.listatokensrmt.append(
-                [Variables.contadortokensrmt, "Numeros", Variables.auxiliarlexicormt,
+                [Variables.contadortokensrmt, "Numero", Variables.auxiliarlexicormt,
                  Variables.columnaauxiliarrmt,
                  Variables.filaauxiliarrmt])
 
@@ -444,6 +451,6 @@ def VerificarNumerosEnterosDecimalesRMT():
 
         # Agregar Token A La Lista
         Variables.listatokensrmt.append(
-            [Variables.contadortokensrmt, "Numeros", Variables.auxiliarlexicormt,
+            [Variables.contadortokensrmt, "Numero", Variables.auxiliarlexicormt,
              Variables.columnaauxiliarrmt,
              Variables.filaauxiliarrmt])

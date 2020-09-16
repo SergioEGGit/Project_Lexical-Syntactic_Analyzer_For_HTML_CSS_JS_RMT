@@ -320,7 +320,6 @@ def AnalizadorLexicoHTML():
 
             if Variables.indexcaracterhtml + 1 < len(Variables.cadenaarchivo):
 
-
                 if re.search(r"[a-zA-Z_ 0-9]", Variables.cadenaarchivo[Variables.indexcaracterhtml + 1]):
 
                     # Verificar Columna

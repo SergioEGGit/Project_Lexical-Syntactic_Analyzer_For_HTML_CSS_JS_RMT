@@ -100,6 +100,30 @@ def AnalizadorLexicoJS():
                     # Vaciar Auxiliar Lexico
                     Variables.auxiliarlexicojs = ""
 
+                    # Agregar Caracter A Auxiliar Lexico
+                    Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                    # Archivo Sin Errores
+                    Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
+
+                    # Aceptar Cadena Como Valida
+
+                    # Agregar Token A Lista
+                    Variables.listatokensjs.append(
+                        [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                         Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
+
+                    # Reportes Automatas
+                    Variables.existesimbolo = True
+
+                    # Sumar Columna, Contador Tokens E Indice Del Array
+                    Variables.columnaauxiliarjs += 1
+                    Variables.indexcaracterjs += 1
+                    Variables.contadortokensjs += 1
+
+                    # Vaciar Auxiliar Lexico
+                    Variables.auxiliarlexicojs = ""
+
                     # Verificar Cadena Completa
                     VerificarComentariosUnilineaJS()
 
@@ -115,7 +139,7 @@ def AnalizadorLexicoJS():
 
                     # Agregar Token A Lista
                     Variables.listatokensjs.append(
-                        [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                        [Variables.contadortokensjs, "Operador", Variables.auxiliarlexicojs,
                          Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
 
                     # Reportes Automatas
@@ -141,7 +165,7 @@ def AnalizadorLexicoJS():
 
                 # Agregar Token A Lista
                 Variables.listatokensjs.append(
-                    [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                    [Variables.contadortokensjs, "Operador", Variables.auxiliarlexicojs,
                      Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
 
                 # Reportes Automatas
@@ -201,7 +225,7 @@ def AnalizadorLexicoJS():
 
                     # Agregar Token A Lista
                     Variables.listatokensjs.append(
-                        [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                        [Variables.contadortokensjs, "Operador", Variables.auxiliarlexicojs,
                          Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
 
                     # Reportes Automatas
@@ -227,7 +251,7 @@ def AnalizadorLexicoJS():
 
                 # Agregar Token A Lista
                 Variables.listatokensjs.append(
-                    [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                    [Variables.contadortokensjs, "Operador", Variables.auxiliarlexicojs,
                      Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
 
                 # Reportes Automatas
@@ -657,7 +681,7 @@ def AnalizadorLexicoJS():
 
             # Agregar Token A Lista
             Variables.listatokensjs.append(
-                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                [Variables.contadortokensjs, "Operador", Variables.auxiliarlexicojs,
                  Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
 
             # Reportes Automatas
@@ -684,7 +708,7 @@ def AnalizadorLexicoJS():
 
             # Agregar Token A Lista
             Variables.listatokensjs.append(
-                [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
+                [Variables.contadortokensjs, "Operador", Variables.auxiliarlexicojs,
                  Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
 
             # Reportes Automatas
@@ -801,7 +825,9 @@ def AnalizadorLexicoJS():
             Variables.auxiliarlexicojs = ""
 
     # Colorear Texto
-    ColorearTexto.ColorearTexto(Variables.listatokensjs)
+    Objetos.richtextboxarchivo.tag_add("black", "1.0", "end-1c")
+    Objetos.richtextboxarchivo.tag_config("black", foreground="black")
+    ColorearTexto.ColorearTextoJS()
 
     # Generar Reporte De Errores
     if Variables.listaerroresjs:
@@ -987,7 +1013,7 @@ def VerificarNumerosEnterosDecimalesJS():
 
             # Agregar Token A La Lista
             Variables.listatokensjs.append(
-                [Variables.contadortokensjs, "Numeros", Variables.auxiliarlexicojs,
+                [Variables.contadortokensjs, "Numero", Variables.auxiliarlexicojs,
                  Variables.columnaauxiliarjs,
                  Variables.filaauxiliarjs])
 
@@ -1009,7 +1035,7 @@ def VerificarNumerosEnterosDecimalesJS():
 
         # Agregar Token A La Lista
         Variables.listatokensjs.append(
-            [Variables.contadortokensjs, "Numeros", Variables.auxiliarlexicojs,
+            [Variables.contadortokensjs, "Numero", Variables.auxiliarlexicojs,
              Variables.columnaauxiliarjs,
              Variables.filaauxiliarjs])
 
@@ -1019,44 +1045,15 @@ def VerificarNumerosEnterosDecimalesJS():
 
 # Verificar Comentarios Unilinea
 def VerificarComentariosUnilineaJS():
+
     # Verificar Si No Estoy Al Final Del Archivo
     if Variables.indexcaracterjs < len(Variables.cadenaarchivo):
 
         # Verificar Si Es Cadena De Texto O Comienzo Etiqueta
         if not re.search(r"[\n]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
 
-            # Verificar Simbolo /
-            if re.search(r"[/]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
-
-                # Agregar Caracter A Auxiliar Lexico
-                Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
-
-                # Archivo Sin Errores
-                Variables.archivojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
-
-                # Aceptar Cadena Como Valida
-
-                # Agregar Token A Lista
-                Variables.listatokensjs.append(
-                    [Variables.contadortokensjs, "Simbolo", Variables.auxiliarlexicojs,
-                     Variables.columnaauxiliarjs, Variables.filaauxiliarjs])
-
-                # Reportes Automatas
-                Variables.existesimbolo = True
-
-                # Sumar Columna, Contador Tokens E Indice Del Array
-                Variables.columnaauxiliarjs += 1
-                Variables.indexcaracterjs += 1
-                Variables.contadortokensjs += 1
-
-                # Vaciar Auxiliar Lexico
-                Variables.auxiliarlexicojs = ""
-
-                # Verificar Cadena Completa
-                VerificarComentariosUnilineaJS()
-
             # Verificar Espacios Vacios
-            elif re.search(r"[ ]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
+            if re.search(r"[ ]", Variables.cadenaarchivo[Variables.indexcaracterjs]):
 
                 # Agregar Caracter A Auxiliar Lexico
                 Variables.auxiliarlexicojs += Variables.cadenaarchivo[Variables.indexcaracterjs]
@@ -1235,7 +1232,7 @@ def VerificarCadenasDeTextoComillasDoblesJS():
             if Variables.existecaracter:
                 # Agregar Token A La Lista
                 Variables.listatokensjs.append(
-                    [Variables.contadortokensjs, "Texto", Variables.auxiliarlexicojs,
+                    [Variables.contadortokensjs, "Texto_D", Variables.auxiliarlexicojs,
                      Variables.columnaauxiliarjs,
                      Variables.filaauxiliarjs])
 
@@ -1259,7 +1256,7 @@ def VerificarCadenasDeTextoComillasDoblesJS():
         if Variables.existecaracter:
             # Agregar Token A La Lista
             Variables.listatokensjs.append(
-                [Variables.contadortokensjs, "Texto", Variables.auxiliarlexicojs,
+                [Variables.contadortokensjs, "Texto_D", Variables.auxiliarlexicojs,
                  Variables.columnaauxiliarjs,
                  Variables.filaauxiliarjs])
 
@@ -1347,7 +1344,7 @@ def VerificarCadenasDeTextoComillasSimplesJS():
             if Variables.existecaracter:
                 # Agregar Token A La Lista
                 Variables.listatokensjs.append(
-                    [Variables.contadortokensjs, "Texto", Variables.auxiliarlexicojs,
+                    [Variables.contadortokensjs, "Texto_S", Variables.auxiliarlexicojs,
                      Variables.columnaauxiliarjs,
                      Variables.filaauxiliarjs])
 
@@ -1371,7 +1368,7 @@ def VerificarCadenasDeTextoComillasSimplesJS():
         if Variables.existecaracter:
             # Agregar Token A La Lista
             Variables.listatokensjs.append(
-                [Variables.contadortokensjs, "Texto", Variables.auxiliarlexicojs,
+                [Variables.contadortokensjs, "Texto_S", Variables.auxiliarlexicojs,
                  Variables.columnaauxiliarjs,
                  Variables.filaauxiliarjs])
 

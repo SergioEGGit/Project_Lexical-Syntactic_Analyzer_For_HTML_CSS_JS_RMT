@@ -1,0 +1,129 @@
+/*   Ruta   */
+
+/*   PATHW: C:\Corregidos\css\   */
+
+/* Inicio deL archivo css */
+
+	p {
+	       color: red;
+	}
+
+/* pueden venir 1 o n reglas */
+
+    miL@abel  {
+        color: red;
+       font-size: 5em;
+    }
+	
+	
+	* { /* este es un selector universal */
+            color: red;
+               font-size: 5em;
+      }
+	  
+	  div {
+          background-color:#dddddd;   @@@@
+          color: gray
+        }
+
+      h1, h2, h3, h4, h5, h6 {
+          margin-top: 0;
+          margin-bottom: 0.5rem;
+      }
+	  
+	  
+	  #texto-centrado {
+         text-align: center;
+      }
+      
+	  
+	  ##   %%    %%               /////////   ++++ 
+	  #link enlace-web {
+           color: yellow;
+           font-size: 4em;
+           position: absolute;
+           top: 600px
+	  }
+		
+		.texto-rojo {
+              color: red;
+        }
+		
+		
+		a:hover {
+			
+			color: red;
+			
+		}
+		
+		
+		$$$$$$<<<<<<>>>>
+		
+		*, *::before, ax:after { 
+		
+			color: red;
+		
+		}
+		
+		
+		div#container{
+			
+			color: red;
+			
+		}
+		
+		div#header h1, h2{
+			
+			color: red;
+			
+		}
+
+		div#hontent p{ 
+		
+			color: red;
+		
+		}
+		
+		h1, h2 {
+background-color: #00ff00;
+}
+
+body {
+background-color: #00ff00
+}
+
+div1 {
+color: purple;
+background-color: #d8da3d;
+width: 200px
+}
+
+div2 {
+color: purple;
+background-color: #d8da3d;
+}
+
+
+75%, 12.25%
+
+15px
+-15 em
+
+relative
+-500
+50.35
+inline-block
+	  
+
+red
+#fF0000
+rgba( 255,0,0 );
+
+
+url("data:image/svg+xml,%3csvg
+xmlns='http://www.w3.org/2000/svg'
+width='8' height='8'");
+
+content: "\2014\00A0";
+
+              /* fin del archivo */

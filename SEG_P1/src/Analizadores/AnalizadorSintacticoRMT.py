@@ -90,7 +90,7 @@ def AnalizadorSintacticoRMT():
 
         else:
 
-            informacionerrores += "Incorrecta"
+            informacionerrores += "Incorrecto"
 
         # Verificar Si Hay Errores Lexicos
         for Fila in Variables.listaerroreslexicosrmt:

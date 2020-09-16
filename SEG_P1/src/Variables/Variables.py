@@ -49,6 +49,7 @@ contadorerrorescss = 0
 contadorbitacora = 0
 auxiliarlexicocss = ""
 archivocss = ""
+numeral = False
 dicpalabrasreservadascss = ["color", "background-color", "background-image", "border", "opacity", "background",
                             "text-align", "font-family", "font-style", "font-weight", "font-size",
                             "font", "padding-left", "padding-right", "padding-bottom",

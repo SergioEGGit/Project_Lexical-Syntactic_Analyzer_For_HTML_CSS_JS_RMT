@@ -3,7 +3,7 @@ import subprocess
 import webbrowser
 
 from pathlib import Path
-from tkinter.filedialog import askopenfilename, asksaveasfile
+from tkinter.filedialog import askopenfilename, asksaveasfile, asksaveasfilename
 from tkinter.messagebox import askyesnocancel, showinfo, askyesno
 
 from src.Design import Objetos
@@ -16,7 +16,9 @@ from src.Analizadores import AnalizadorLexicoHMTL as AnalizadorHTML, AnalizadorL
 
 # Método Nuevo
 def OpcionNuevo():
+
     # Verificar Si Hay Un Archivo Abierto
+
     if Variables.rutaarchivo != "":
 
         # Verificar Si Se Desea Guardar O No El Archivo
@@ -27,30 +29,19 @@ def OpcionNuevo():
             Objetos.richtextboxarchivo.delete(1.0, "end-1c")
             Variables.rutaarchivo = ""
             Variables.extensionarchivo = ""
+            OpcionGuardarComo()
         elif bandera is None:
             print("")
         elif not bandera:
             Objetos.richtextboxarchivo.delete(1.0, "end-1c")
             Variables.rutaarchivo = ""
             Variables.extensionarchivo = ""
+            OpcionGuardarComo()
 
     else:
 
-        # Verificar Si No Hay Nada En El Rich Text
-        texto = Objetos.richtextboxarchivo.get(1.0, "end-1c")
-
-        if texto != "":
-
-            # Verificar Si Se Desea guardar O No El Archivo
-            bandera2 = askyesnocancel(title="Aviso", message="¿Desea Guardar El Documento Que Esta Modificando?")
-
-            if bandera2:
-                OpcionGuardarComo()
-                Objetos.richtextboxarchivo.delete(1.0, "end-1c")
-            elif bandera2 is None:
-                print("")
-            elif not bandera2:
-                Objetos.richtextboxarchivo.delete(1.0, "end-1c")
+        # Guardar Documento
+        OpcionGuardarComo()
 
 
 # Método Abrir Archivo
@@ -61,7 +52,7 @@ def OpcionAbrir():
 
     # Obtener El Nombre Del Archivo
     nombrearchivo = askopenfilename(initialdir="C:\\", title="Abrir Archivo", filetypes=(
-        ("Archivos HTML", "*.html"), ("Archivos CSS", "*.css*"), ("Archivos JS", "*.js"),
+        ("Archivos HTML", "*.html"), ("Archivos CSS", "*.css"), ("Archivos JS", "*.js"),
         ("Archivos rmt", "*.rmt")))
 
     Variables.nombrearchivo = Path(nombrearchivo).stem
@@ -97,6 +88,7 @@ def OpcionAbrir():
 
         # Colocar Texto En Rich Text
         Objetos.richtextboxarchivo.insert("end-1c", Variables.cadenaarchivo)
+        Objetos.richtextboxconsola.delete(1.0, "end-1c")
 
 
 # Método Guardar Archivo
@@ -117,18 +109,29 @@ def OpcionGuardar():
 # Método Guardar Como
 def OpcionGuardarComo():
     # Obtener Directorio Guardar Archivo
-    rutaarchivo = asksaveasfile(initialdir="C:\\", title="Guardar Como...", filetypes=(
-        ("Archivos HTML", "*.html"), ("Archivos CSS", "*.css*"), ("Archivos JS", "*.js"),
-        ("Archivos Análisis Sintáctico", "*.rmt")), defaultextension=".html")
+    nombrearchivo = asksaveasfilename(initialdir="C:\\", title="Guardar Como...", filetypes=(
+        ("Archivos HTML", "*.html"), ("Archivos CSS", "*.css"), ("Archivos JS", "*.js"),
+        ("Archivos Rmt", "*.rmt")), defaultextension=".html")
 
-    # Si Se Indico Un Archivo
-    if rutaarchivo:
-        # Escribir En Archivo
-        rutaarchivo.write(Objetos.richtextboxarchivo.get(1.0, "end-1c"))
-        rutaarchivo.close()
+    # Obtener Ruta
+    arreglosplit = nombrearchivo.split(".")
+    Variables.extensionarchivo = arreglosplit[len(arreglosplit) - 1]
+    Variables.nombrearchivo = Path(nombrearchivo).stem
+    Variables.rutaarchivo = nombrearchivo
 
-        # Mensaje
-        showinfo("Información", "Archivo Guardado Con Exito!")
+    if nombrearchivo != "":
+
+        # Abrir Archivo En Modo Lectura
+        nuevoarchivo = open(nombrearchivo, "w")
+
+        # Si Se Indico Un Archivo
+        if nombrearchivo != "":
+            # Escribir En Archivo
+            nuevoarchivo.write(Objetos.richtextboxarchivo.get(1.0, "end-1c"))
+            nuevoarchivo.close()
+
+            # Mensaje
+            showinfo("Información", "Archivo Guardado Con Exito!")
 
 
 # Método Salir
