@@ -9,6 +9,9 @@ extensionarchivo = ""
 # Cadena Archivo
 cadenaarchivo = ""
 
+# Cadena Archivo Lineas
+lineasarchivo = []
+
 # Vericar Si Hay Un Caracter
 existecaracter = False
 
@@ -21,6 +24,8 @@ comillasfinales = False
 # Nombre De Archivo
 nombrearchivo = ""
 
+# Arreglo Split
+
 # Analizador HTML
 columnaauxiliarhtml = 0
 filaauxiliarhtml = 0
@@ -31,7 +36,7 @@ auxiliarlexicohtml = ""
 archivohtml = ""
 dicpalabrasreservadashtml = ["html", "head", "title", "body", "h1", "h2", "h3", "h4", "h5", "h6", "p", "br", "img",
                              "src", "a", "href", "ul", "li", "style", "table", "border", "th", "tr", "td", "caption",
-                             "colgroup", "col", "thead", "tbody", "tfoot"]
+                             "colgroup", "col", "thead", "tbody", "tfoot", "div", "class"]
 listatokenshtml = []
 listaerroreshtml = []
 
@@ -90,3 +95,4 @@ archivormt = ""
 listatokensrmt = []
 listaerroresrmt = []
 listaerroreslexicosrmt = []
+listaanalisissintacticormt = []

@@ -318,8 +318,15 @@ def AnalizadorLexicoHTML():
                 [Variables.contadorerroreshtml, "Error_Lexico", Variables.auxiliarlexicohtml,
                  Variables.columnaauxiliarhtml, Variables.filaauxiliarhtml])
 
+            if Variables.indexcaracterhtml + 1 < len(Variables.cadenaarchivo):
+
+
+                if re.search(r"[a-zA-Z_ 0-9]", Variables.cadenaarchivo[Variables.indexcaracterhtml + 1]):
+
+                    # Verificar Columna
+                    Variables.columnaauxiliarhtml += 1
+
             # Sumar Contador Tokens E Indice Del Array
-            Variables.columnaauxiliarhtml += 1
             Variables.indexcaracterhtml += 1
             Variables.contadorerroreshtml += 1
 
@@ -327,7 +334,9 @@ def AnalizadorLexicoHTML():
             Variables.auxiliarlexicohtml = ""
 
     # Colorear Texto
-    ColorearTexto.ColorearTexto(Variables.listatokenshtml)
+    Objetos.richtextboxarchivo.tag_add("black", "1.0", "end-1c")
+    Objetos.richtextboxarchivo.tag_config("black", foreground="black")
+    ColorearTexto.ColorearTextoHTML()
 
     # Generar Reporte De Errores
     if Variables.listaerroreshtml:
@@ -495,7 +504,7 @@ def VerificarCadenasDeTextoHTML():
                 Variables.archivohtml += Variables.cadenaarchivo[Variables.indexcaracterhtml]
 
                 # Agregar Caracter A Auxiliar Lexico
-                Variables.auxiliarlexicohtml += " "
+                Variables.auxiliarlexicohtml += "\n"
 
                 # Sumar Fila E Indice Del Array, Reiniciar Columna
                 Variables.columnaauxiliarhtml = 1
@@ -704,6 +713,20 @@ def VerificarComentariosHTML():
 
                 # Sumar Columna E Indice Del Array
                 Variables.columnaauxiliarhtml += 1
+                Variables.indexcaracterhtml += 1
+
+                # Verificar Cadena Completa
+                VerificarComentariosHTML()
+
+            # Verificar Salto De Linea
+            elif re.search(r"[\n]", Variables.cadenaarchivo[Variables.indexcaracterhtml]):
+
+                # Archivo Sin Errores
+                Variables.archivohtml += Variables.cadenaarchivo[Variables.indexcaracterhtml]
+
+                # Sumar Fila E Indice Del Array, Reiniciar Columna
+                Variables.columnaauxiliarhtml = 1
+                Variables.filaauxiliarhtml += 1
                 Variables.indexcaracterhtml += 1
 
                 # Verificar Cadena Completa

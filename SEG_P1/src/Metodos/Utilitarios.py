@@ -16,7 +16,6 @@ from src.Analizadores import AnalizadorLexicoHMTL as AnalizadorHTML, AnalizadorL
 
 # Método Nuevo
 def OpcionNuevo():
-
     # Verificar Si Hay Un Archivo Abierto
     if Variables.rutaarchivo != "":
 
@@ -27,11 +26,13 @@ def OpcionNuevo():
             OpcionGuardar()
             Objetos.richtextboxarchivo.delete(1.0, "end-1c")
             Variables.rutaarchivo = ""
+            Variables.extensionarchivo = ""
         elif bandera is None:
             print("")
         elif not bandera:
             Objetos.richtextboxarchivo.delete(1.0, "end-1c")
             Variables.rutaarchivo = ""
+            Variables.extensionarchivo = ""
 
     else:
 
@@ -54,10 +55,14 @@ def OpcionNuevo():
 
 # Método Abrir Archivo
 def OpcionAbrir():
+
+    # Asingacion
+    Variables.lineasarchivo[:] = []
+
     # Obtener El Nombre Del Archivo
     nombrearchivo = askopenfilename(initialdir="C:\\", title="Abrir Archivo", filetypes=(
         ("Archivos HTML", "*.html"), ("Archivos CSS", "*.css*"), ("Archivos JS", "*.js"),
-        ("Archivos Análisis Sintáctico", "*.rmt")))
+        ("Archivos rmt", "*.rmt")))
 
     Variables.nombrearchivo = Path(nombrearchivo).stem
 
@@ -72,6 +77,16 @@ def OpcionAbrir():
         # Guardar Ruta Y Extension Del Archivo
         Variables.rutaarchivo = nombrearchivo.strip()
         Variables.extensionarchivo = arreglosplit[1].strip()
+
+        # Abrir Archivo En Modo Lectura
+        nuevoarchivo = open(nombrearchivo, "r")
+
+        # Obtener Texto Por Lineas
+        for Linea in nuevoarchivo.readlines():
+
+            Variables.lineasarchivo.append(Linea)
+
+        nuevoarchivo.close()
 
         # Abrir Archivo En Modo Lectura
         nuevoarchivo = open(nombrearchivo, "r")
@@ -123,7 +138,6 @@ def OpcionSalir():
 
 # Modulo Decisión
 def ModuloDecisionAnalizador():
-
     # Obtener Texto Archivo
     Variables.cadenaarchivo = Objetos.richtextboxarchivo.get(1.0, "end-1c")
 
@@ -156,7 +170,6 @@ def ModuloDecisionAnalizador():
 
 # Generar Archivo HTML Sin Errores
 def ArchivoSinErroresHTML(nombrearchivo):
-
     # Variables
     rutaarchivo = ""
     rutastring = ""
@@ -244,7 +257,6 @@ def ArchivoSinErroresHTML(nombrearchivo):
 
 # Generar Archivo CSS Sin Errores
 def ArchivoSinErroresCSS(nombrearchivo):
-
     # Variables
     rutaarchivo = ""
     rutastring = ""
@@ -332,7 +344,6 @@ def ArchivoSinErroresCSS(nombrearchivo):
 
 # Generar Archivo JS Sin Errores
 def ArchivoSinErroresJS(nombrearchivo):
-
     # Variables
     rutaarchivo = ""
     rutastring = ""
@@ -349,7 +360,6 @@ def ArchivoSinErroresJS(nombrearchivo):
 
         # Obtener Comentarios
         if Tokens[1] == "Comentario_UniLinea":
-
             # Agregar Token A Lista
             listacomentarios.append(Tokens[2].strip())
 
@@ -364,7 +374,6 @@ def ArchivoSinErroresJS(nombrearchivo):
 
             # Verificar Si La Ruta Es Valida
             if listasplit[0].strip() == "PATHW":
-
                 # Obtener Ruta Para Windows
                 rutaarchivo = listasplit[1].strip()
 
@@ -376,7 +385,6 @@ def ArchivoSinErroresJS(nombrearchivo):
 
         # Verificar Si Existe El Directorio
         if not patharchivo.is_dir():
-
             # Crear Directorios
             patharchivo.mkdir(parents=True)
 
@@ -393,7 +401,6 @@ def ArchivoSinErroresJS(nombrearchivo):
 
         # Verificar Si Existe El Directorio
         if not patharchivo.is_dir():
-
             # Crear Directorios
             patharchivo.mkdir(parents=True)
 
@@ -417,7 +424,6 @@ def ArchivoSinErroresJS(nombrearchivo):
 
     # Abrir Archivo
     if resultado:
-
         # Abrir Archivos Corregidos
         # Abrir Archivo JS
         subprocess.run(["notepad", pathsalida])
@@ -425,7 +431,6 @@ def ArchivoSinErroresJS(nombrearchivo):
 
 # Generar Archivo RMT Sin Errores
 def ArchivoSinErroresRMT(nombrearchivo):
-
     # Variables
     rutastring = ""
 
@@ -460,7 +465,6 @@ def ArchivoSinErroresRMT(nombrearchivo):
 
     # Abrir Archivo
     if resultado:
-
         # Abrir Archivos Corregidos
         # Abrir Archivo JS
         subprocess.run(["notepad", pathsalida])
@@ -548,4 +552,3 @@ def MostrarErrores(extensionarchivo):
     # Insertar Texto
     Objetos.richtextboxconsola.delete(1.0, "end-1c")
     Objetos.richtextboxconsola.insert("end-1c", listaerrores)
-

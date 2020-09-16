@@ -4,7 +4,7 @@ from tkinter import WORD
 from src.Design import Objetos
 from src.Metodos import Utilitarios
 from src.Variables import Variables
-from src.Reportes import ReporteBitacoraCSS, ReporteAutomataJS
+from src.Reportes import ReporteBitacoraCSS, ReporteAutomataJS, ReporteAnalisisSintacticoRMT as ReporteRMT
 
 # --------------------------------------------Conifguración Objetos-----------------------------------------------------
 
@@ -49,6 +49,9 @@ def Menu():
                                          command=lambda: ReporteAutomataJS.GenerarGraficaReporteArbolCompletoJS())
     Objetos.menuherramientas.add_command(label="Reporte Bitacora CSS",
                                          command=lambda: ReporteBitacoraCSS.ReporteBitacoraCSS(
+                                             Variables.extensionarchivo))
+    Objetos.menuherramientas.add_command(label="Reporte Analisis Sintáctico RMT",
+                                         command=lambda: ReporteRMT.ReporteAnalisisSintacticoRMT(
                                              Variables.extensionarchivo))
     Objetos.ventanaprincipal.config(menu=Objetos.barrademenu)
 

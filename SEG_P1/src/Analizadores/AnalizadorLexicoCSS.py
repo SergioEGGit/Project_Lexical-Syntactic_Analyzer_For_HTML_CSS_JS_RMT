@@ -872,7 +872,9 @@ def AnalizadorLexicoCSS():
             Variables.auxiliarlexicocss = ""
 
     # Colorear Texto
-    ColorearTexto.ColorearTexto(Variables.listatokenscss)
+    Objetos.richtextboxarchivo.tag_add("black", "1.0", "end-1c")
+    Objetos.richtextboxarchivo.tag_config("black", foreground="black")
+    ColorearTexto.ColorearTextoCSS()
 
     # Generar Reporte De Errores
     if Variables.listaerrorescss:

@@ -142,6 +142,7 @@ def AutomataComentarioMultilineaJS():
                     "       Estado_Com_1 -> Estado_Com_2 [label = \" * \", fontsize = \"30\"] \n" \
                     "       Estado_Com_2 -> Estado_Com_2 [label = \" Todo \", fontsize = \"15\"] \n" \
                     "       Estado_Com_2 -> Estado_Com_3 [label = \" * \", fontsize = \"30\"] \n" \
+                    "       Estado_Com_3 -> Estado_Com_2 [label = \" * \", fontsize = \"30\"] \n" \
                     "       Estado_Com_3 -> Estado_Com_4 [label = \" / \", fontsize = \"30\"] \n\n" \
                     "   } \n\n\n"
 
