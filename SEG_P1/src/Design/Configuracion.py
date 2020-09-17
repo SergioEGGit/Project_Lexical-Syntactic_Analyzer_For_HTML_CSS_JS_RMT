@@ -55,6 +55,11 @@ def Menu():
                                              Variables.extensionarchivo))
     Objetos.ventanaprincipal.config(menu=Objetos.barrademenu)
 
+    # Menú Ayuda
+    Objetos.barrademenu.add_cascade(label="Ayuda", menu=Objetos.menuayuda)
+    Objetos.menuayuda.config(background='#FFEFD5', fg='#000080', tearoff=0)
+    Objetos.menuayuda.add_command(label="Acerca De...", command=lambda: Utilitarios.OpcionAcercaDe())
+
 
 # Rich Text Box Archivo
 def RichTextArchivo():

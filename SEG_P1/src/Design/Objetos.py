@@ -16,6 +16,9 @@ menuarchivo = Menu(barrademenu)
 # Menú Herrramientas (Menu Item)
 menuherramientas = Menu(barrademenu)
 
+# Menú Ayuda (Menu Item)
+menuayuda = Menu(barrademenu)
+
 # Rich Text Box Archivo (ScrollTextBox)
 richtextboxarchivo = scrolledtext.ScrolledText(ventanaprincipal)
 

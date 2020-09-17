@@ -139,6 +139,13 @@ def OpcionSalir():
     Objetos.ventanaprincipal.quit()
 
 
+# Método Acerca De
+def OpcionAcercaDe():
+
+    showinfo("Acerca De...", "             Proyecto_1: SEG_P1 \n  Sergio Alexander Echigoyen Gomez\n         "
+                             "           201801628")
+
+
 # Modulo Decisión
 def ModuloDecisionAnalizador():
     # Obtener Texto Archivo
